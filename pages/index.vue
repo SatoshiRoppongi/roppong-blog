@@ -12,7 +12,7 @@
 
 <script>
 import Card from '../components/card.vue'
-import { createClient } from '../plugins/contentful.js'
+import { createClient } from '~/plugins/contentful'
 
 const client = createClient()
 export default {

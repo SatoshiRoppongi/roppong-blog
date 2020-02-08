@@ -1,4 +1,5 @@
 import { getConfigForKeys } from './lib/config.js'
+// import pkg from './package'
 
 import { createClient } from './plugins/contentful'
 const ctfConfig = getConfigForKeys([
@@ -37,7 +38,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/contentful'],
   /*
    ** Nuxt.js dev-modules
    */

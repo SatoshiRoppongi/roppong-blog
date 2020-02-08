@@ -10,9 +10,10 @@
   </section>
 </template>
 <script>
-import { createClient } from '../../plugins/contentful.js'
+import { createClient } from '~/plugins/contentful'
 
 const client = createClient()
+console.log('test')
 console.log(client)
 export default {
   props: {
@@ -23,6 +24,9 @@ export default {
   },
   transition: 'slide-right',
   asyncData({ env, params }) {
+    console.log('env,params')
+    console.log(env)
+    console.log(params.sys)
     return client
       .getEntry(params.sys)
       .then((entrie) => {

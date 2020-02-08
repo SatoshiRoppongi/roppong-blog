@@ -13,8 +13,6 @@
 import { createClient } from '~/plugins/contentful'
 
 const client = createClient()
-console.log('test')
-console.log(client)
 export default {
   props: {
     id: {
@@ -24,14 +22,13 @@ export default {
   },
   transition: 'slide-right',
   asyncData({ env, params }) {
-    console.log('env,params')
-    console.log(env)
-    console.log(params.sys)
     return client
-      .getEntry(params.sys)
-      .then((entrie) => {
+      .getEntries(env.CTF_BLOG_POST_TYPE_ID)
+      .then((entries) => {
         return {
-          article: entrie
+          article: entries.items.find(
+            (article) => article.fields.slug === params.slug
+          )
         }
       })
       .catch(console.error)

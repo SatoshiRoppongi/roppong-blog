@@ -3,13 +3,13 @@
     :to="{
       name: 'blog-slug',
       params: {
-        sys: id
+        slug: fields.slug
       }
     }"
     class="wrapper"
   >
     <article class="card">
-      <h1 class="card_title">{{ title }}</h1>
+      <h1 class="card_title">{{ fields.title }}</h1>
       <p class="card_text">{{ id }}</p>
       <p class="card_date">{{ date }}</p>
     </article>
@@ -18,9 +18,9 @@
 <script>
 export default {
   props: {
-    title: {
-      type: String,
-      default: ''
+    fields: {
+      type: Object,
+      default: null
     },
     id: {
       type: String,

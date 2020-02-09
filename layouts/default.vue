@@ -1,19 +1,29 @@
 <template>
   <div>
     <Header />
-    <main>
-      <nuxt />
-    </main>
+    <div class="flexbox">
+      <div class="main">
+        <main>
+          <nuxt />
+        </main>
+      </div>
+      <div class="side">
+        <Sidebar />
+      </div>
+    </div>
     <Footer />
   </div>
 </template>
 <script>
 import Header from '@/components/header.vue'
 import Footer from '@/components/footer.vue'
+import Sidebar from '@/components/sidebar.vue'
+
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    Sidebar
   }
 }
 </script>
@@ -31,39 +41,29 @@ html {
   box-sizing: border-box;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
+.main {
+  width: calc(100% - 300px);
+  background: #fcc;
+  margin-bottom: 10px;
+}
+.side {
+  background: #fea;
+  width: 300px;
 }
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
+.main,
+.side {
+  padding: 2%;
+  border-radius: 10px;
 }
-
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
-
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-  margin-left: 15px;
-}
-
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
+@media (min-width: 600px) {
+  .flexbox {
+    margin: 0 auto;
+    display: flex;
+    max-width: 1080px;
+  }
+  .main {
+    margin: 0 10px 0 0;
+  }
 }
 </style>

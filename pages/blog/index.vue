@@ -1,13 +1,16 @@
 <template>
-  <div>
-    <nuxt-link to="blog">
-      blog
-    </nuxt-link>
-  </div>
+  <section class="index">
+    <card
+      v-for="(post, i) in posts"
+      :key="i"
+      :fields="post.fields"
+      :id="post.sys.id"
+      :date="post.sys.updatedAt"
+    />
+  </section>
 </template>
 
 <script>
-/*
 import Card from '@/components/card.vue'
 import { createClient } from '@/plugins/contentful'
 
@@ -22,11 +25,12 @@ export default {
       .getEntries(env.CTF_BLOG_POST_TYPE_ID)
       .then((entries) => {
         return {
-          posts: entries.items
+          posts: entries.items.filter(
+            (item) => item.sys.contentType.sys.id === 'blogPost'
+          )
         }
       })
       .catch(console.error)
   }
 }
-*/
 </script>

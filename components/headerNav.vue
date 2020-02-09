@@ -1,14 +1,23 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+      <b-navbar-brand to="/blog"><Homeicon /></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#">Link</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+          <!-- <b-nav-item v-for="item in navBarMenu" :key="item.slug" :to="item.to"> -->
+          <b-nav-item
+            v-for="item in navBarMenu"
+            :key="item.slug"
+            :to="{
+              name: 'blog-category-category',
+              params: { slug: item.slug }
+            }"
+          >
+            {{ item.name }}
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -44,3 +53,49 @@
     </b-navbar>
   </div>
 </template>
+<script>
+import Homeicon from '@/components/homeicon.vue'
+import { createClient } from '~/plugins/contentful'
+
+const client = createClient()
+export default {
+  components: {
+    Homeicon
+  },
+  data() {
+    return {
+      navBarMenu: []
+    }
+  },
+  async mounted() {
+    await client
+      .getEntries(process.env.CTF_BLOG_POST_TYPE_ID)
+      .then((entries) => {
+        const categories = entries.items.filter(
+          (item) => item.sys.contentType.sys.id === 'category'
+        )
+        this.navBarMenu.push(
+          ...categories.map((category) => {
+            return {
+              name: category.fields.title,
+              slug: category.fields.slug,
+              to: 'category/' + category.fields.slug
+            }
+          })
+        )
+        this.navBarMenu.push({
+          name: 'このブログについて',
+          slug: 'about',
+          to: 'about'
+        })
+        this.navBarMenu.push({
+          name: 'お問い合わせ',
+          slug: 'contact',
+          to: 'contact'
+        })
+        return this.navBarMenu.flat()
+      })
+      .catch(console.error)
+  }
+}
+</script>

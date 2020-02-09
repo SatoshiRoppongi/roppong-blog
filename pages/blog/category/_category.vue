@@ -1,6 +1,6 @@
 <template>
-  <section class="slug">
-    <h1 class="slug_title">
+  <section class="category">
+    <h1 class="category_title">
       {{ article.fields.title }}
     </h1>
     <p class="slug_date">{{ article.sys.updatedAt }}</p>
@@ -22,10 +22,11 @@ export default {
   },
   transition: 'slide-right',
   asyncData({ env, params }) {
+    console.log('params')
+    console.log(params)
     return client
       .getEntries(env.CTF_BLOG_POST_TYPE_ID)
       .then((entries) => {
-        console.log(entries)
         return {
           article: entries.items.find(
             (article) => article.fields.slug === params.slug

@@ -1,7 +1,7 @@
 <template>
   <div>
     <header>
-      <h1>header</h1>
+      <h1>roppong blog</h1>
       <HeaderNav />
     </header>
   </div>

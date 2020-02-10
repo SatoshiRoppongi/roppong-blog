@@ -1,12 +1,14 @@
 <template>
   <section class="category">
     <h1 class="category_title">
-      {{ article.fields.title }}
+      {{ article[0].fields.title }}
     </h1>
+    <!--
     <p class="slug_date">{{ article.sys.updatedAt }}</p>
     <div>
       {{ article.fields.body.content[0].content[0].value }}
     </div>
+    -->
   </section>
 </template>
 <script>
@@ -28,7 +30,7 @@ export default {
       .getEntries(env.CTF_BLOG_POST_TYPE_ID)
       .then((entries) => {
         return {
-          article: entries.items.find(
+          article: entries.items.filter(
             (article) => article.fields.slug === params.slug
           )
         }

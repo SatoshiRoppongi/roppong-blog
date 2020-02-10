@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar">
+    <Profile />
     <div class="sidebar-wrapper">
       <div class="sidebar-link-area">
         <!-- サイドバーメニュー -->
@@ -34,6 +35,14 @@
     </div>
   </div>
 </template>
+<script>
+import Profile from '@/components/profile.vue'
+export default {
+  components: {
+    Profile
+  }
+}
+</script>
 
 <style>
 .sidebar {
@@ -42,7 +51,7 @@
   width: 200px; /* サイドバーのwidthを指定 */
   max-width: 200px; /* widthの最大値 */
   opacity: 0.9.5; /* 透過する 0に近くほど透過する */
-  position: fixed; /* 左上に要素を固定する(スクロールしても位置は固定される) */
+  /* position: fixed; /* 要素を固定する(スクロールしても位置は固定される) */
   overflow-x: hidden; /* 横軸ではみ出た要素を非表示にする */
   box-sizing: border-box; /* paddingとborderを、widthとheightに含める */
   padding-left: 40px; /* サイドバー内のリンクの位置を右にずらす */

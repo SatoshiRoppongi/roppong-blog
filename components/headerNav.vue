@@ -9,12 +9,19 @@
         <b-navbar-nav>
           <!-- <b-nav-item v-for="item in navBarMenu" :key="item.slug" :to="item.to"> -->
           <b-nav-item
-            v-for="item in navBarMenu"
+            v-for="item in navBarCategoryMenu"
             :key="item.slug"
             :to="{
-              name: 'blog-category-category',
+              name: 'blog-category-slug',
               params: { slug: item.slug }
             }"
+          >
+            {{ item.name }}
+          </b-nav-item>
+          <b-nav-item
+            v-for="item in navBarPageMenu"
+            :key="item.slug"
+            :to="item.slug"
           >
             {{ item.name }}
           </b-nav-item>
@@ -64,7 +71,8 @@ export default {
   },
   data() {
     return {
-      navBarMenu: []
+      navBarCategoryMenu: [],
+      navBarPageMenu: []
     }
   },
   async mounted() {
@@ -74,7 +82,7 @@ export default {
         const categories = entries.items.filter(
           (item) => item.sys.contentType.sys.id === 'category'
         )
-        this.navBarMenu.push(
+        this.navBarCategoryMenu.push(
           ...categories.map((category) => {
             return {
               name: category.fields.title,
@@ -83,17 +91,16 @@ export default {
             }
           })
         )
-        this.navBarMenu.push({
+        this.navBarPageMenu.push({
           name: 'このブログについて',
           slug: 'about',
           to: 'about'
         })
-        this.navBarMenu.push({
+        this.navBarPageMenu.push({
           name: 'お問い合わせ',
           slug: 'contact',
           to: 'contact'
         })
-        return this.navBarMenu.flat()
       })
       .catch(console.error)
   }

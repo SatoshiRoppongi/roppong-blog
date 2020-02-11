@@ -24,6 +24,7 @@ export default {
     return client
       .getEntries(env.CTF_BLOG_POST_TYPE_ID)
       .then((entries) => {
+        console.log('here')
         return {
           posts: entries.items.filter(
             (item) => item.sys.contentType.sys.id === 'blogPost'

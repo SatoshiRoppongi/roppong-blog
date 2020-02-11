@@ -8,11 +8,13 @@
     }"
     class="wrapper"
   >
-    <article class="card">
-      <h1 class="card_title">{{ fields.title }}</h1>
-      <p class="card_text">{{ id }}</p>
-      <p class="card_date">{{ date }}</p>
-    </article>
+    <b-card>
+      <article>
+        <h1 class="card_title">{{ fields.title }}</h1>
+        <p class="card_text">{{ id }}</p>
+        <p class="card_date">{{ date }}</p>
+      </article>
+    </b-card>
   </nuxt-link>
 </template>
 <script>

@@ -1,18 +1,24 @@
 <template>
-  <div>
-    <Header />
-    <div class="flexbox">
-      <div class="main">
+  <b-container>
+    <b-row class="header">
+      <b-col>
+        <Header />
+      </b-col>
+    </b-row>
+    <b-row class="main">
+      <b-col cols="12" md="8">
         <main>
           <nuxt />
         </main>
-      </div>
-      <div class="side">
+      </b-col>
+      <b-col md="4">
         <Sidebar />
-      </div>
-    </div>
-    <Footer />
-  </div>
+      </b-col>
+    </b-row>
+    <b-row class="footer">
+      <Footer />
+    </b-row>
+  </b-container>
 </template>
 <script>
 import Header from '@/components/header.vue'
@@ -40,7 +46,7 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
-
+/*
 .main {
   width: calc(100% - 300px);
   background: #fcc;
@@ -66,4 +72,5 @@ html {
     margin: 0 10px 0 0;
   }
 }
+*/
 </style>

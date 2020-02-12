@@ -1,13 +1,52 @@
 <template>
   <b-container>
-    <b-row>
-      <b-col cols="12">
-        <Profile />
-      </b-col>
-      <b-col v-for="i of 12" :key="i" cols="12">
-        menu1
-      </b-col>
-    </b-row>
+    <div>
+      <Profile />
+    </div>
+    <div class="mt-4">
+      <b-card header="最近の投稿">
+        <b-list-group flush>
+          <b-list-group-item href="#">Cras justo odio</b-list-group-item>
+          <b-list-group-item href="#"
+            >Dapibus ac facilisis in</b-list-group-item
+          >
+          <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
+        </b-list-group>
+      </b-card>
+    </div>
+    <div class="mt-4">
+      <b-card header="カテゴリー">
+        <b-list-group flush>
+          <b-list-group-item href="#">Cras justo odio</b-list-group-item>
+          <b-list-group-item href="#"
+            >Dapibus ac facilisis in</b-list-group-item
+          >
+          <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
+        </b-list-group>
+      </b-card>
+    </div>
+    <div class="mt-4">
+      <b-card header="アーカイブ">
+        <b-list-group flush>
+          <b-list-group-item href="#">Cras justo odio</b-list-group-item>
+          <b-list-group-item href="#"
+            >Dapibus ac facilisis in</b-list-group-item
+          >
+          <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
+        </b-list-group>
+      </b-card>
+    </div>
+    <div class="mt-4">
+      <b-card header="最近のコメント">
+        <b-list-group flush>
+          <b-list-group-item href="#">Cras justo odio</b-list-group-item>
+          <b-list-group-item href="#"
+            >Dapibus ac facilisis in</b-list-group-item
+          >
+          <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
+        </b-list-group>
+      </b-card>
+    </div>
   </b-container>
 </template>
 <script>

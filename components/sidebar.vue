@@ -1,8 +1,9 @@
 <template>
   <b-container>
-    <div>
+    <div class="mt-4">
       <Profile />
     </div>
+    <!-- todo:v-forを使ってもっと簡略化する -->
     <div class="mt-4">
       <b-card header="最近の投稿">
         <b-list-group flush>

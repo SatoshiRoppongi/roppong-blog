@@ -1,14 +1,14 @@
 <template>
   <div>
-    <b-card
-      :img-src="imageurl"
-      title="ろっぽん"
-      img-alt="Image"
-      img-top
-      tag="article"
-      style="max-width: 20rem;"
-      class="text-center"
-    >
+    <b-card tag="article" style="max-width: 20rem;" class="text-center">
+      <div class="mx-5">
+        <b-card-img :src="imageurl" alt="my face" top width="30" />
+      </div>
+      <div class="mt-1">
+        <b-card-title>
+          ろっぽん
+        </b-card-title>
+      </div>
       <b-card-text>
         都内でシステムエンジニアをしています
       </b-card-text>

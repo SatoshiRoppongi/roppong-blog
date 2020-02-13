@@ -36,8 +36,10 @@ export default {
           (entry) => entry.fields.slug === params.slug
         )
         console.log('entries')
-        console.log(entries.items)
-        const posts = entries.items.filter(
+        const accessableEntries = entries.items.filter(
+          (entry) => entry.fields.category
+        )
+        const posts = accessableEntries.filter(
           (entry) => entry.fields.category.sys.id === category.sys.id
         )
         console.log(' posts')

@@ -1,21 +1,26 @@
 <template>
   <section class="category">
     <h1 class="category_title">
-      {{ article[0].fields.title }}
+      {{ category.fields.title }}
     </h1>
-    <!--
-    <p class="slug_date">{{ article.sys.updatedAt }}</p>
-    <div>
-      {{ article.fields.body.content[0].content[0].value }}
-    </div>
-    -->
+    <card
+      v-for="(post, i) in posts"
+      :key="i"
+      :fields="post.fields"
+      :id="post.sys.id"
+      :date="post.sys.updatedAt"
+    />
   </section>
 </template>
 <script>
+import Card from '@/components/card.vue'
 import { createClient } from '~/plugins/contentful'
 
 const client = createClient()
 export default {
+  components: {
+    Card
+  },
   props: {
     id: {
       type: String,
@@ -24,15 +29,22 @@ export default {
   },
   transition: 'slide-right',
   asyncData({ env, params }) {
-    console.log('params')
-    console.log(params)
     return client
       .getEntries(env.CTF_BLOG_POST_TYPE_ID)
       .then((entries) => {
+        const category = entries.items.find(
+          (entry) => entry.fields.slug === params.slug
+        )
+        console.log('entries')
+        console.log(entries.items)
+        const posts = entries.items.filter(
+          (entry) => entry.fields.category.sys.id === category.sys.id
+        )
+        console.log(' posts')
+        console.log(posts)
         return {
-          article: entries.items.filter(
-            (article) => article.fields.slug === params.slug
-          )
+          category,
+          posts
         }
       })
       .catch(console.error)

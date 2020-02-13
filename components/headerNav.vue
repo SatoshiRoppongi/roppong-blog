@@ -21,7 +21,10 @@
           <b-nav-item
             v-for="item in navBarPageMenu"
             :key="item.slug"
-            :to="item.slug"
+            :to="{
+              name: 'blog-page',
+              params: { page: item.slug }
+            }"
           >
             {{ item.name }}
           </b-nav-item>

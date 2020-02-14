@@ -4,47 +4,18 @@
       <Profile />
     </div>
     <!-- todo:v-forを使ってもっと簡略化する -->
-    <div class="mt-4">
-      <b-card header="最近の投稿">
+    <div v-for="card in cards" :key="card.title" class="mt-4">
+      <b-card :header="card.title">
         <b-list-group flush>
-          <b-list-group-item href="#">Cras justo odio</b-list-group-item>
-          <b-list-group-item href="#"
-            >Dapibus ac facilisis in</b-list-group-item
+          <b-list-group-item
+            v-for="item in card.body"
+            :key="item.slug"
+            :to="{
+              name: card.pathName,
+              params: { slug: item.slug }
+            }"
+            >{{ item.title }}</b-list-group-item
           >
-          <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
-        </b-list-group>
-      </b-card>
-    </div>
-    <div class="mt-4">
-      <b-card header="カテゴリー">
-        <b-list-group flush>
-          <b-list-group-item href="#">Cras justo odio</b-list-group-item>
-          <b-list-group-item href="#"
-            >Dapibus ac facilisis in</b-list-group-item
-          >
-          <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
-        </b-list-group>
-      </b-card>
-    </div>
-    <div class="mt-4">
-      <b-card header="アーカイブ">
-        <b-list-group flush>
-          <b-list-group-item href="#">Cras justo odio</b-list-group-item>
-          <b-list-group-item href="#"
-            >Dapibus ac facilisis in</b-list-group-item
-          >
-          <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
-        </b-list-group>
-      </b-card>
-    </div>
-    <div class="mt-4">
-      <b-card header="最近のコメント">
-        <b-list-group flush>
-          <b-list-group-item href="#">Cras justo odio</b-list-group-item>
-          <b-list-group-item href="#"
-            >Dapibus ac facilisis in</b-list-group-item
-          >
-          <b-list-group-item href="#">Vestibulum at eros</b-list-group-item>
         </b-list-group>
       </b-card>
     </div>
@@ -52,9 +23,57 @@
 </template>
 <script>
 import Profile from '@/components/profile.vue'
+import { createClient } from '~/plugins/contentful'
+
+const client = createClient()
 export default {
   components: {
     Profile
+  },
+  data() {
+    return {
+      cards: [
+        { title: '最近の投稿', pathName: 'blog-slug', body: [] },
+        { title: 'カテゴリ', pathName: 'blog-category-slug', body: [] },
+        { title: 'アーカイブ', pathName: 'blog-category-date', body: [] },
+        { title: '最近のコメント', pathName: 'blog-slug', body: [] }
+      ]
+    }
+  },
+  async mounted() {
+    const POST_MAX_ENTRY = 5 // 投稿表示件数（取得件数)
+    // const COMMENT_MAX_ENTRY = 5 // コメント表示件数
+    const recentPost = await client
+      .getEntries({
+        content_type: 'blogPost',
+        order: '-sys.createdAt',
+        limit: POST_MAX_ENTRY
+      })
+      .then((entries) => {
+        return entries.items.map((entry) => {
+          return {
+            title: entry.fields.title,
+            slug: entry.fields.slug,
+            createdAt: entry.sys.createdAt
+          }
+        })
+      })
+      .catch(console.error)
+    this.cards[0].body = recentPost
+
+    const category = await client
+      .getEntries({
+        content_type: 'category'
+      })
+      .then((entries) => {
+        return entries.items.map((entry) => {
+          return {
+            title: entry.fields.title,
+            slug: entry.fields.slug
+          }
+        })
+      })
+    this.cards[1].body = category
   }
 }
 </script>

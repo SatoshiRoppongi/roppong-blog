@@ -80,8 +80,7 @@ export default {
           ...categories.map((category) => {
             return {
               name: category.fields.title,
-              slug: category.fields.slug,
-              to: 'category/' + category.fields.slug
+              slug: category.fields.slug
             }
           })
         )

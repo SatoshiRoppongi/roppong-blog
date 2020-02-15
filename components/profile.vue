@@ -30,8 +30,6 @@ export default {
     await client
       .getEntries({ 'sys.id': '6qL3UUnrtrcFIrF9znLpea' })
       .then((entries) => {
-        console.log('sysentries')
-        console.log(entries)
         this.imageurl =
           'https:' +
           entries.items[0].fields.image.fields.file.url +

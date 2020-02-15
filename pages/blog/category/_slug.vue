@@ -35,15 +35,12 @@ export default {
         const category = entries.items.find(
           (entry) => entry.fields.slug === params.slug
         )
-        console.log('entries')
         const accessableEntries = entries.items.filter(
           (entry) => entry.fields.category
         )
         const posts = accessableEntries.filter(
           (entry) => entry.fields.category.sys.id === category.sys.id
         )
-        console.log(' posts')
-        console.log(posts)
         return {
           category,
           posts

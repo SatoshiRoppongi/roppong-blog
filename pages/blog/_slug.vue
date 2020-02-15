@@ -25,7 +25,6 @@ export default {
     return client
       .getEntries(env.CTF_BLOG_POST_TYPE_ID)
       .then((entries) => {
-        console.log(entries)
         return {
           article: entries.items.find(
             (article) => article.fields.slug === params.slug

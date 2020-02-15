@@ -3,7 +3,6 @@
     <div class="mt-4">
       <Profile />
     </div>
-    <!-- todo:v-forを使ってもっと簡略化する -->
     <div v-for="card in cards" :key="card.title" class="mt-4">
       <b-card :header="card.title">
         <b-list-group flush>
@@ -66,7 +65,7 @@ export default {
     this.cards[0].body = recentPost
 
     /* カテゴリ */
-    const category = await client
+    const categories = await client
       .getEntries({
         content_type: 'category'
       })
@@ -74,46 +73,49 @@ export default {
         return entries.items.map((entry) => {
           return {
             title: entry.fields.title,
-            slug: entry.fields.slug
+            slug: entry.fields.slug,
+            id: entry.sys.id
           }
         })
       })
-    this.cards[1].body = category
+    for (const category of categories) {
+      const postCount = await client
+        .getEntries({
+          content_type: 'blogPost'
+        })
+        .then((posts) => {
+          return posts.items.filter((entry) => {
+            return entry.fields.category.sys.id === category.id
+          }).length
+        })
+      category.count = postCount
+    }
+    this.cards[1].body = categories
     /* アーカイブ */
-    // const archives =
     const archives = await client
       .getEntries({
         content_type: 'blogPost',
         order: '-sys.createdAt'
       })
       .then((entries) => {
-        const yearMonthList = []
-        let postCount = 0
-        let prevPostYearMonth = ''
-        let yearMonth = ''
-        let yyyymm = ''
-        for (const post of entries.items) {
-          const dateSplited = post.sys.createdAt.split('-')
-          yearMonth = dateSplited[0] + '年' + dateSplited[1] + '月'
-          yyyymm = dateSplited[0] + dateSplited[1]
-          if (yearMonth === prevPostYearMonth || prevPostYearMonth === '') {
-            postCount++
-          } else {
-            yearMonthList.push({
-              title: yearMonth,
-              slug: yyyymm,
-              count: postCount
-            })
-            postCount = 0
-            prevPostYearMonth = yearMonth
-          }
-        }
-        yearMonthList.push({
-          title: yearMonth,
-          slug: yyyymm,
-          count: postCount
+        const yyyymm = entries.items.map((item) => {
+          const yearMonthSplited = item.sys.createdAt.split('-')
+          return yearMonthSplited[0] + yearMonthSplited[1]
         })
-        return yearMonthList
+        const archives = []
+        const counts = {}
+        for (let i = 0; i < yyyymm.length; i++) {
+          const key = yyyymm[i]
+          counts[key] = counts[key] ? counts[key] + 1 : 1
+        }
+        for (const key in counts) {
+          archives.push({
+            title: key,
+            slug: key,
+            count: counts[key]
+          })
+        }
+        return archives
       })
     this.cards[2].body = archives
     // const COMMENT_MAX_ENTRY = 5 // コメント表示件数

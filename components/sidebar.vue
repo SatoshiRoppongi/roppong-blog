@@ -14,8 +14,12 @@
               name: card.pathName,
               params: { slug: item.slug }
             }"
-            >{{ item.title }}</b-list-group-item
-          >
+            class="d-flex justify-content-between align-items-center"
+            >{{ item.title }}
+            <b-badge v-if="item.count" variant="primary" pill>
+              {{ item.count }}
+            </b-badge>
+          </b-list-group-item>
         </b-list-group>
       </b-card>
     </div>
@@ -35,14 +39,14 @@ export default {
       cards: [
         { title: '最近の投稿', pathName: 'blog-slug', body: [] },
         { title: 'カテゴリ', pathName: 'blog-category-slug', body: [] },
-        { title: 'アーカイブ', pathName: 'blog-category-date', body: [] },
+        { title: 'アーカイブ', pathName: 'blog-archives-slug', body: [] },
         { title: '最近のコメント', pathName: 'blog-slug', body: [] }
       ]
     }
   },
   async mounted() {
+    /* 最近の投稿 */
     const POST_MAX_ENTRY = 5 // 投稿表示件数（取得件数)
-    // const COMMENT_MAX_ENTRY = 5 // コメント表示件数
     const recentPost = await client
       .getEntries({
         content_type: 'blogPost',
@@ -61,6 +65,7 @@ export default {
       .catch(console.error)
     this.cards[0].body = recentPost
 
+    /* カテゴリ */
     const category = await client
       .getEntries({
         content_type: 'category'
@@ -74,6 +79,44 @@ export default {
         })
       })
     this.cards[1].body = category
+    /* アーカイブ */
+    // const archives =
+    const archives = await client
+      .getEntries({
+        content_type: 'blogPost',
+        order: '-sys.createdAt'
+      })
+      .then((entries) => {
+        const yearMonthList = []
+        let postCount = 0
+        let prevPostYearMonth = ''
+        let yearMonth = ''
+        let yyyymm = ''
+        for (const post of entries.items) {
+          const dateSplited = post.sys.createdAt.split('-')
+          yearMonth = dateSplited[0] + '年' + dateSplited[1] + '月'
+          yyyymm = dateSplited[0] + dateSplited[1]
+          if (yearMonth === prevPostYearMonth || prevPostYearMonth === '') {
+            postCount++
+          } else {
+            yearMonthList.push({
+              title: yearMonth,
+              slug: yyyymm,
+              count: postCount
+            })
+            postCount = 0
+            prevPostYearMonth = yearMonth
+          }
+        }
+        yearMonthList.push({
+          title: yearMonth,
+          slug: yyyymm,
+          count: postCount
+        })
+        return yearMonthList
+      })
+    this.cards[2].body = archives
+    // const COMMENT_MAX_ENTRY = 5 // コメント表示件数
   }
 }
 </script>

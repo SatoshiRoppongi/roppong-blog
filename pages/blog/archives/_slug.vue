@@ -3,13 +3,7 @@
     <h1 class="category_title">
       {{ yearMonth }}
     </h1>
-    <card
-      v-for="(post, i) in posts"
-      :key="i"
-      :fields="post.fields"
-      :id="post.sys.id"
-      :date="post.sys.updatedAt"
-    />
+    <card v-for="post in posts" :key="post.sys.id" :item="post" />
   </section>
 </template>
 <script>

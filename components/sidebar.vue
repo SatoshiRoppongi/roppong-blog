@@ -110,7 +110,7 @@ export default {
         }
         for (const key in counts) {
           archives.push({
-            title: key,
+            title: key.substr(0, 4) + '年' + key.substr(4) + '月',
             slug: key,
             count: counts[key]
           })

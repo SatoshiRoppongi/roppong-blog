@@ -1,12 +1,6 @@
 <template>
   <section class="index">
-    <card
-      v-for="(post, i) in posts"
-      :key="i"
-      :fields="post.fields"
-      :id="post.sys.id"
-      :date="post.sys.updatedAt"
-    />
+    <card v-for="post in posts" :key="post.sys.id" :item="post" />
   </section>
 </template>
 
@@ -22,13 +16,23 @@ export default {
   },
   asyncData({ env, params }) {
     return client
-      .getEntries(env.CTF_BLOG_POST_TYPE_ID)
+      .getEntries()
       .then((entries) => {
-        return {
-          posts: entries.items.filter(
-            (item) => item.sys.contentType.sys.id === 'blogPost'
+        const posts = entries.items.filter(
+          (item) => item.sys.contentType.sys.id === 'blogPost'
+        )
+        const categories = entries.items.filter(
+          (item) => item.sys.contentType.sys.id === 'category'
+        )
+        const categorizedPosts = posts.map((post) => {
+          const category = categories.find(
+            (category) => category.sys.id === post.fields.category.sys.id
           )
-        }
+          post.categoryTitle = category.fields.title
+          post.categorySlug = category.fields.slug
+          return post
+        })
+        return { posts: categorizedPosts }
       })
       .catch(console.error)
   }

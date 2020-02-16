@@ -1,24 +1,20 @@
 <template>
-  <b-container>
-    <b-row class="header">
-      <b-col>
-        <Header />
-      </b-col>
-    </b-row>
-    <b-row class="main">
-      <b-col cols="12" md="8">
-        <main>
-          <nuxt />
-        </main>
-      </b-col>
-      <b-col md="4">
-        <Sidebar />
-      </b-col>
-    </b-row>
-    <b-row class="footer">
-      <Footer />
-    </b-row>
-  </b-container>
+  <div>
+    <Header />
+    <b-container>
+      <b-row class="main">
+        <b-col cols="12" md="8">
+          <main>
+            <nuxt />
+          </main>
+        </b-col>
+        <b-col md="4">
+          <Sidebar />
+        </b-col>
+      </b-row>
+    </b-container>
+    <Footer />
+  </div>
 </template>
 <script>
 import Header from '@/components/header.vue'
@@ -35,6 +31,7 @@ export default {
 </script>
 
 <style>
+/*
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -46,6 +43,7 @@ html {
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
 }
+*/
 /*
 .main {
   width: calc(100% - 300px);

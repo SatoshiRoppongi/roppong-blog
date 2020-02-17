@@ -1,5 +1,8 @@
 <template>
-  <section class="index">
+  <section class="index mt-4 text-center">
+    <h1 class="posts_title">
+      新着記事一覧
+    </h1>
     <card v-for="post in posts" :key="post.sys.id" :item="post" />
   </section>
 </template>

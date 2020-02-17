@@ -3,6 +3,7 @@
     <h1 class="slug_title">
       {{ article.fields.title }}
     </h1>
+    <div v-html="$md.render(article.fields.body)"></div>
     <p class="slug_date">{{ article.sys.updatedAt }}</p>
     <div v-html="toHtmlString(article.fields.body)"></div>
   </section>

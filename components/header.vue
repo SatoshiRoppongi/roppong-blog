@@ -2,17 +2,11 @@
   <div>
     <header>
       <b-card
-        overlay
-        img-src="https://picsum.photos/900/100/?image=1021&blur=2"
-        img-alt="Header Image"
-        text-variant="black"
+        bg-variant="dark"
+        text-variant="white"
         title="roppong blog"
-        sub-title="ろっぽんぶろぐ"
-        bg-variant="red"
+        class="text-center rounded-0"
       >
-        <b-card-text>
-          日々のアイデア・考えていることをアウトプットする
-        </b-card-text>
       </b-card>
       <HeaderNav />
     </header>

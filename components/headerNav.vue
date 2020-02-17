@@ -22,8 +22,8 @@
             v-for="item in navBarPageMenu"
             :key="item.slug"
             :to="{
-              name: 'blog-page',
-              params: { page: item.slug }
+              name: 'blog-slug',
+              params: { slug: item.slug }
             }"
           >
             {{ item.name }}

@@ -1,7 +1,8 @@
 <template>
-  <section class="category">
+  <section class="category mt-4 text-center">
     <h1 class="category_title">
-      {{ category.fields.title }}
+      <span style="color:blue">{{ category.fields.title }}</span
+      >に関する記事 <b-badge pill>{{ posts.length }}件</b-badge>
     </h1>
     <card v-for="post in posts" :key="post.sys.id" :item="post" />
   </section>

@@ -22,16 +22,9 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item
-            v-for="item in navBarPageMenu"
-            :key="item.slug"
-            :to="{
-              name: 'blog-slug',
-              params: { slug: item.slug }
-            }"
-          >
-            {{ item.name }}
-          </b-nav-item>
+          <b-nav-item to="/blog/about">このブログについて</b-nav-item>
+          <b-nav-item to="/blog/contact">お問い合わせ</b-nav-item>
+
           <b-nav-form>
             <b-form-input
               size="sm"
@@ -67,8 +60,7 @@ export default {
   },
   data() {
     return {
-      navBarCategoryMenu: [],
-      navBarPageMenu: []
+      navBarCategoryMenu: []
     }
   },
   async mounted() {
@@ -89,16 +81,6 @@ export default {
             }
           })
         )
-        this.navBarPageMenu.push({
-          name: 'このブログについて',
-          slug: 'about',
-          to: 'about'
-        })
-        this.navBarPageMenu.push({
-          name: 'お問い合わせ',
-          slug: 'contact',
-          to: 'contact'
-        })
       })
       .catch(console.error)
   }

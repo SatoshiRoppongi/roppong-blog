@@ -73,7 +73,10 @@ export default {
   },
   async mounted() {
     await client
-      .getEntries(process.env.CTF_BLOG_POST_TYPE_ID)
+      .getEntries({
+        content_type: 'category',
+        order: 'fields.sort'
+      })
       .then((entries) => {
         const categories = entries.items.filter(
           (item) => item.sys.contentType.sys.id === 'category'

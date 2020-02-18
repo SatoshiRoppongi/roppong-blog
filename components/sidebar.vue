@@ -67,7 +67,8 @@ export default {
     /* カテゴリ */
     const categories = await client
       .getEntries({
-        content_type: 'category'
+        content_type: 'category',
+        order: 'fields.sort'
       })
       .then((entries) => {
         return entries.items.map((entry) => {

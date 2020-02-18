@@ -36,7 +36,7 @@
       >
         <b-form-select
           id="input-3"
-          v-model="form.food"
+          v-model="form.category"
           :options="category"
           required
         ></b-form-select>
@@ -49,7 +49,7 @@
       >
         <b-form-textarea
           id="input-4"
-          v-model="text"
+          v-model="form.text"
           placeholder="お問い合わせ内容を入力してください。"
           rows="20"
           max-rows="20"
@@ -71,8 +71,8 @@ export default {
       form: {
         email: '',
         name: '',
-        food: null,
-        checked: []
+        cateogry: null,
+        text: ''
       },
       category: [
         { text: '選択してください', value: null },
@@ -95,7 +95,7 @@ export default {
       this.form.email = ''
       this.form.name = ''
       this.form.food = null
-      this.form.checked = []
+      this.form.text = ''
       // Trick to reset/clear native browser form validation state
       this.show = false
       this.$nextTick(() => {

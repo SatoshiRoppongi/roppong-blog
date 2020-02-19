@@ -7,8 +7,9 @@
       <b-form
         @reset="onReset"
         v-if="show"
+        name="ask-question"
         data-netlify="true"
-        data-netlify-honeypot
+        data-netlify-honeypot="bot-field"
         method="POST"
       >
         <input type="hidden" name="form-name" value="ask-question" />

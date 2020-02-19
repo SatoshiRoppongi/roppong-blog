@@ -18,6 +18,7 @@
           v-model="form.name"
           required
           placeholder="山田太郎"
+          name="name"
         ></b-form-input>
       </b-form-group>
 
@@ -33,6 +34,7 @@
           type="email"
           required
           placeholder="xxxxx@example.com"
+          name="email"
         ></b-form-input>
       </b-form-group>
 
@@ -46,6 +48,7 @@
           v-model="form.category"
           :options="category"
           required
+          name="category"
         ></b-form-select>
       </b-form-group>
 
@@ -60,6 +63,7 @@
           placeholder="お問い合わせ内容を入力してください。"
           rows="20"
           max-rows="20"
+          name="text"
         ></b-form-textarea>
       </b-form-group>
       <b-button type="submit" variant="primary">送信</b-button>

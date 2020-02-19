@@ -1,6 +1,6 @@
 <template>
-  <section class="slug">
-    <h1 class="slug_title">
+  <section class="slug my-5">
+    <h1 class="slug_title text-center">
       {{ article.fields.title }}
     </h1>
     <div v-html="$md.render(article.fields.body)"></div>

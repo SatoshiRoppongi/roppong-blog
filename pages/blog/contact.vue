@@ -4,7 +4,7 @@
       お問い合わせ
     </h1>
     <client-only>
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show" netlify>
+      <b-form @reset="onReset" v-if="show" netlify>
         <b-icon-envelope-fill />
 
         <b-form-group id="input-group-2" label="お名前" label-for="input-2">
@@ -88,9 +88,6 @@ export default {
     }
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault()
-    },
     onReset(evt) {
       evt.preventDefault()
       // Reset our form values

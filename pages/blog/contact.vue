@@ -10,7 +10,7 @@
         name="ask-question"
         data-netlify="true"
         data-netlify-honeypot="bot-field"
-        method="POST"
+        method="post"
       >
         <input type="hidden" name="form-name" value="ask-question" />
         <b-form-group id="input-group-2" label="お名前" label-for="input-2">

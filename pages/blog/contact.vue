@@ -4,9 +4,14 @@
       お問い合わせ
     </h1>
     <client-only>
-      <b-form @reset="onReset" v-if="show" netlify>
-        <b-icon-envelope-fill />
-
+      <b-form
+        @reset="onReset"
+        v-if="show"
+        data-netlify="true"
+        data-netlify-honeypot
+        method="POST"
+      >
+        <input type="hidden" name="form-name" value="ask-question" />
         <b-form-group id="input-group-2" label="お名前" label-for="input-2">
           <b-form-input
             id="input-2"

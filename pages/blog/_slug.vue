@@ -5,6 +5,13 @@
     </h1>
     <div v-html="$md.render(article.fields.body)"></div>
     <p class="slug_date">{{ article.sys.updatedAt }}</p>
+    <div class="comments">
+      <vue-disqus
+        :identifier="'post/' + article.fields.title"
+        :url="'http://roppong.com' + article.fields.slug"
+        shortname="roppong"
+      ></vue-disqus>
+    </div>
   </section>
 </template>
 <script>

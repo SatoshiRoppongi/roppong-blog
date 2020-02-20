@@ -8,7 +8,7 @@
     <div class="comments">
       <vue-disqus
         :identifier="'post/' + article.fields.title"
-        :url="'http://roppong.com' + article.fields.slug"
+        :url="'http://roppong.com/blog/' + article.fields.slug"
         shortname="roppong"
       ></vue-disqus>
     </div>

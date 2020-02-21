@@ -38,7 +38,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/contentful', '~/plugins/disqus'],
+  plugins: ['~/plugins/contentful', '~/plugins/disqus', '~/plugins/markdownit'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -87,14 +87,26 @@ export default {
     CTF_CDA_ACCESS_TOKEN: ctfConfig.CTF_CDA_ACCESS_TOKEN,
     CTF_BLOG_POST_TYPE_ID: ctfConfig.CTF_BLOG_POST_TYPE_ID
   },
-  markdownit: {
-    injected: true, // $mdを利用してmarkdownをhtmlにレンダリングする
-    breaks: true, // 改行コードを<br>に変換する
-    html: true, // HTML タグを有効にする
-    linkify: true, // URLに似たテキストをリンクに自動変換する
-    typography: true, // 言語に依存しないきれいな 置換 + 引用符 を有効にします。
-    use: [
-      'markdown-it-toc' // 目次を作るためのライブラリ。別途インストールが必要
-    ]
+  router: {
+    // 現在Nuxt.jsのバグでページ内アンカーリンク付きのURLを直接開いた際にその位置にスクロールしない
+    // バグの暫定的な対処:https://isoppp.com/note/2018-06-20/add1-nuxt-firebase-blog-markdown-process/
+    scrollBehavior(to, from, savedPosition) {
+      if (savedPosition) {
+        return savedPosition
+      } else {
+        let position = {}
+        if (to.matched.length < 2) {
+          position = { x: 0, y: 0 }
+        } else if (
+          to.matched.some((r) => r.components.default.options.scrollToTop)
+        ) {
+          position = { x: 0, y: 0 }
+        }
+        if (to.hash) {
+          position = { selector: to.hash }
+        }
+        return position
+      }
+    }
   }
 }

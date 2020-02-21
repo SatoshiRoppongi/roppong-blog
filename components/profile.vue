@@ -23,6 +23,13 @@
               height="50"
               fluid
           /></b-list-group-item>
+          <b-list-group-item href="https://www.strava.com/athletes/43984091">
+            <b-img-lazy
+              src="~/static/Strava_logo.png"
+              width="50"
+              height="50"
+              fluid
+          /></b-list-group-item>
           <b-list-group-item href="https://www.youtube.com/user/s6hori">
             <b-img-lazy
               src="~/static/youtube_social_circle_dark.png"

@@ -21,12 +21,21 @@ export default {
     return client
       .getEntries()
       .then((entries) => {
-        const posts = entries.items.filter(
+        let posts = entries.items.filter(
           (item) => item.sys.contentType.sys.id === 'blogPost'
         )
         const categories = entries.items.filter(
           (item) => item.sys.contentType.sys.id === 'category'
         )
+        posts = posts.map((post) => {
+          if (post.fields.images) {
+            const eyeCatchImage = entries.includes.Asset.find(
+              (asset) => asset.sys.id === post.fields.images.sys.id
+            )
+            post.eyeCatchImageUrl = eyeCatchImage.fields.file.url
+          }
+          return post
+        })
         const categorizedPosts = posts.map((post) => {
           const category = categories.find(
             (category) => category.sys.id === post.fields.category.sys.id

@@ -44,6 +44,7 @@ export default ({ app }, inject) => {
     permalinkBefore: true,
     permalinkSymbol: '' // §
   }).use(markdownItTocDoneRight)
+  // md.use(require('markdown-it-imsize'))
 
   const defaultRender =
     md.renderer.rules.link_open ||

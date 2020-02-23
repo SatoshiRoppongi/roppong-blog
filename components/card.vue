@@ -27,13 +27,17 @@
         </nuxt-link>
       </b-card-sub-title>
       <b-card-img src="https://picsum.photos/900/300/?random" />
-      <b-card-text>
-        あああああああああああああああああああああああああああああああ
-        あああああああああああああああああああああああああああああああ
-        あああああああああああああああああああああああああああああああ
-      </b-card-text>
-      todo:続きを見るボタン-> フル記事へのリンク
-      <p class="card_date">{{ updatedAt }}</p>
+      <b-card-text v-html="abstruct" class="text-left my-5"> </b-card-text>
+      <nuxt-link
+        :to="{
+          name: 'blog-slug',
+          params: {
+            slug: slug
+          }
+        }"
+      >
+        <b-button block variant="outline-primary">続きを見る</b-button>
+      </nuxt-link>
     </b-card>
   </div>
 </template>
@@ -66,6 +70,20 @@ export default {
     },
     categorySlug() {
       return this.item.categorySlug
+    },
+    abstruct() {
+      if (this.item.fields.body) {
+        const endStr = this.item.fields.body.indexOf('[[toc]]')
+        const maxStr = 200
+        return (
+          this.item.fields.body
+            .substring(0, Math.min(endStr, maxStr)) // 目次までの or maxStr文字数まで 表示する
+            .replace(/\s+$/, '')
+            .replace(/\r?\n/g, '<br>') + '...' // 文章が続く感を出したいので
+        )
+      } else {
+        return ''
+      }
     }
   },
   methods: {

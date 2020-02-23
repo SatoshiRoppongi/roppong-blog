@@ -34,7 +34,9 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    { src: '~/node_modules/highlight.js/styles/hopscotch.css', lang: 'css' }
+  ],
   /*
    ** Plugins to load before mounting the App
    */

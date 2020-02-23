@@ -1,6 +1,7 @@
 import MarkdownIt from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
+import hljs from 'highlight.js'
 /* refs https://izm51.com/posts/markdown-it-target-blank-anchor */
 
 export default ({ app }, inject) => {
@@ -13,14 +14,31 @@ export default ({ app }, inject) => {
     typography: true, // 言語に依存しないきれいな 置換 + 引用符 を有効にします。
     preset: 'default',
     xhtmlOut: true,
-    langPrefix: 'language-'
+    langPrefix: 'language-',
+    highlight: (code, lang) => {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return (
+            '<pre class="hljs"><code>' +
+            hljs.highlight(lang, code, true).value +
+            '</code></pre>'
+          )
+        } catch (__) {}
+      }
+      return (
+        '<pre class="hljs"><code>' +
+        hljs.highlight('plaintext', code, true).value +
+        '</code></pre>'
+      )
+    }
   })
   md.use(require('markdown-it-table-of-contents'))
   md.use(require('markdown-it-footnote'))
   md.use(require('markdown-it-mark'))
   md.use(require('markdown-it-video'))
-  // md.use(require('markdown-it-anchor'))
-  // md.use(require('markdown-it-table-of-contents'))
+  md.use(require('markdown-it-sanitizer'))
+  md.use(require('markdown-it-emoji'))
+  md.use(require('markdown-it-checkbox'))
   md.use(markdownItAnchor, {
     permalink: true,
     permalinkBefore: true,

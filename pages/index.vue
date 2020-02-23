@@ -6,27 +6,4 @@
   </div>
 </template>
 
-<script>
-/*
-import Card from '@/components/card.vue'
-import { createClient } from '@/plugins/contentful'
-
-const client = createClient()
-export default {
-  transition: 'slide-left',
-  components: {
-    Card
-  },
-  asyncData({ env, params }) {
-    return client
-      .getEntries(env.CTF_BLOG_POST_TYPE_ID)
-      .then((entries) => {
-        return {
-          posts: entries.items
-        }
-      })
-      .catch(console.error)
-  }
-}
-*/
-</script>
+<script></script>

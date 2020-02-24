@@ -3,11 +3,18 @@
     <h1 class="slug_title text-center">
       {{ article.fields.title }}
     </h1>
-    <!-- 画像をここに -->
     <div class="my-3">
       <div>投稿日：{{ createdAt }}</div>
       <div v-if="updatedAt !== createdAt">更新日：{{ updatedAt }}</div>
     </div>
+    <!-- 画像をここに -->
+    <b-img-lazy
+      :src="eyeCatchImageUrl"
+      fluid
+      alt="Eye catch image"
+      class="my-3"
+      center
+    ></b-img-lazy>
     <div v-html="$md.render(article.fields.body)" class="post-content"></div>
     <p class="slug_date">{{ article.sys.updatedAt }}</p>
     <div class="comments">
@@ -37,16 +44,28 @@ export default {
     },
     updatedAt() {
       return this.dateFormat(this.article.sys.updatedAt)
+    },
+    eyeCatchImageUrl() {
+      return this.article.eyeCatchImageUrl
+        ? 'https:' + this.article.eyeCatchImageUrl
+        : 'https://picsum.photos/900/300/?random'
     }
   },
   asyncData({ env, params }) {
     return client
       .getEntries(env.CTF_BLOG_POST_TYPE_ID)
       .then((entries) => {
-        return {
-          article: entries.items.find(
-            (article) => article.fields.slug === params.slug
+        const article = entries.items.find(
+          (article) => article.fields.slug === params.slug
+        )
+        if (article.fields.images) {
+          const eyeCatchImage = entries.includes.Asset.find(
+            (asset) => asset.sys.id === article.fields.images.sys.id
           )
+          article.eyeCatchImageUrl = eyeCatchImage.fields.file.url
+        }
+        return {
+          article
         }
       })
       .catch(console.error)

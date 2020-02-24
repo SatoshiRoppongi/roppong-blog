@@ -33,9 +33,18 @@ export default {
         const accessableEntries = entries.items.filter(
           (entry) => entry.fields.category
         )
-        const posts = accessableEntries.filter(
+        let posts = accessableEntries.filter(
           (entry) => entry.fields.category.sys.id === category.sys.id
         )
+        posts = posts.map((post) => {
+          if (post.fields.images) {
+            const eyeCatchImage = entries.includes.Asset.find(
+              (asset) => asset.sys.id === post.fields.images.sys.id
+            )
+            post.eyeCatchImageUrl = eyeCatchImage.fields.file.url
+          }
+          return post
+        })
         return {
           category,
           posts

@@ -1,8 +1,6 @@
 <template>
   <section class="category">
-    <h1 class="category_title">
-      {{ yearMonth }}
-    </h1>
+    <h1 class="category_title my-5">{{ yearMonth }} の投稿</h1>
     <card v-for="post in posts" :key="post.sys.id" :item="post" />
   </section>
 </template>

@@ -59,7 +59,8 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    '~/plugins/hook' // pluginsセクションではなく、ここ？
   ],
   /*
    ** Axios module configuration

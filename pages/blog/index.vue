@@ -4,6 +4,16 @@
       新着記事一覧
     </h1>
     <card v-for="post in posts" :key="post.sys.id" :item="post" />
+    <b-pagination-nav
+      :link-gen="linkGen"
+      :number-of-pages="Number(itemTotal / perPage)"
+      use-router
+      pills
+      size="lg"
+      align="center"
+      class="my-5"
+    >
+    </b-pagination-nav>
   </section>
 </template>
 
@@ -17,13 +27,20 @@ export default {
   components: {
     Card
   },
-  asyncData({ env, params }) {
+  asyncData({ env, params, route }) {
+    const perPage = 2 // 1ページあたりの記事件数
+    let pageNumber = 1
+    if (typeof route.params.id !== 'undefined') {
+      pageNumber = parseInt(route.params.id)
+    }
     return client
       .getEntries()
       .then((entries) => {
         let posts = entries.items.filter(
           (item) => item.sys.contentType.sys.id === 'blogPost'
         )
+        const itemTotal = posts.length
+        posts = posts.slice(perPage * (pageNumber - 1), perPage * pageNumber)
         const categories = entries.items.filter(
           (item) => item.sys.contentType.sys.id === 'category'
         )
@@ -44,9 +61,14 @@ export default {
           post.categorySlug = category.fields.slug
           return post
         })
-        return { posts: categorizedPosts }
+        return { posts: categorizedPosts, pageNumber, perPage, itemTotal }
       })
       .catch(console.error)
+  },
+  methods: {
+    linkGen(pageNumber) {
+      return pageNumber === 1 ? '/blog/' : `/blog/page/${pageNumber}`
+    }
   }
 }
 </script>

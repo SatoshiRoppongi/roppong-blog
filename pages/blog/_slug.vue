@@ -3,6 +3,20 @@
     <h1 class="slug_title text-center">
       {{ article.fields.title }}
     </h1>
+    記事カテゴリ：
+    <b-badge
+      v-if="article.categorySlug"
+      :to="{
+        name: 'blog-category-slug',
+        params: {
+          slug: article.categorySlug
+        }
+      }"
+      class="mb-2"
+      variant="info"
+    >
+      {{ article.categoryTitle }}
+    </b-badge>
     <div class="my-3">
       <div>投稿日：{{ createdAt }}</div>
       <div v-if="updatedAt !== createdAt">更新日：{{ updatedAt }}</div>
@@ -63,6 +77,16 @@ export default {
             (asset) => asset.sys.id === article.fields.images.sys.id
           )
           article.eyeCatchImageUrl = eyeCatchImage.fields.file.url
+        }
+        const categories = entries.items.filter(
+          (item) => item.sys.contentType.sys.id === 'category'
+        )
+        if (article.fields.category) {
+          const category = categories.find(
+            (category) => category.sys.id === article.fields.category.sys.id
+          )
+          article.categoryTitle = category.fields.title
+          article.categorySlug = category.fields.slug
         }
         return {
           article

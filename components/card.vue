@@ -3,6 +3,7 @@
     <b-card class="text-center">
       {{ createdAt }}
       <span v-if="updatedAt !== createdAt"> (更新日：{{ updatedAt }}) </span>
+      <b-badge pill>New</b-badge>
       <nuxt-link
         :to="{
           name: 'blog-slug',
@@ -14,18 +15,19 @@
       >
         <b-card-title center class="mt-3"> {{ title }} </b-card-title>
       </nuxt-link>
-      <b-card-sub-title class="mb-2">
-        <nuxt-link
-          :to="{
-            name: 'blog-category-slug',
-            params: {
-              slug: categorySlug
-            }
-          }"
-        >
-          {{ categoryTitle }}
-        </nuxt-link>
-      </b-card-sub-title>
+      <b-badge
+        v-if="categorySlug"
+        :to="{
+          name: 'blog-category-slug',
+          params: {
+            slug: categorySlug
+          }
+        }"
+        class="mb-2"
+        variant="info"
+      >
+        {{ categoryTitle }}
+      </b-badge>
       <b-card-img-lazy :src="eyeCatchImageUrl" />
       <b-card-text v-html="abstruct" class="text-left my-5"> </b-card-text>
       <nuxt-link

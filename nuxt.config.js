@@ -90,12 +90,14 @@ export default {
           const allPosts = entries.items.filter(
             (item) => item.sys.contentType.sys.id === 'blogPost'
           )
+          /*
           const allPostCount = allPosts.length
           // ページ数
           const basePageCount = Math.ceil(allPostCount / PERPAGE)
           const basePagePathList = [...Array(basePageCount).keys()].map(
             (i) => `/blog/page/${i + 1}`
           )
+          */
           // カテゴリ
           const categoryList = entries.items
             .filter((item) => item.sys.contentType.sys.id === 'category')
@@ -117,9 +119,11 @@ export default {
           )
 
           // カテゴリ(ページネーション対応)
+          /*
           const categoryPagePathList = categoryList
             .map((category) => category.categoryPagePathList)
             .flat()
+          */
           // アーカイブ
           const yyyymmList = allPosts
             .map((post) =>
@@ -138,8 +142,8 @@ export default {
           return [
             ...postPathList,
             ...categoryPathList,
-            ...basePagePathList,
-            ...categoryPagePathList,
+            // ...basePagePathList,
+            // ...categoryPagePathList,
             ...archivePagePathList,
             ...miscPathList
           ]

@@ -6,19 +6,19 @@ module.exports = function() {
       name: 'blog-page-id'
     }
     const blogArchivies = {
-      path: '/blog/archives/:slug',
+      path: '/blog/archive/:slug',
       component: 'pages/blog/index.vue',
-      name: 'blog-archives-slug'
+      name: 'blog-archive-slug'
     }
     const blogCategory = {
       path: '/blog/category/:slug',
       component: 'pages/blog/index.vue',
       name: 'blog-category-slug'
     }
-    const blogArchivesPages = {
-      path: '/blog/archives/:slug/page/:id',
+    const blogArchivePages = {
+      path: '/blog/archive/:slug/page/:id',
       component: 'pages/blog/index.vue',
-      name: 'blog-archives-slug-page-id'
+      name: 'blog-archive-slug-page-id'
     }
     const blogCategoryPages = {
       path: '/blog/category/:slug/page/:id',
@@ -26,7 +26,7 @@ module.exports = function() {
       name: 'blog-category-slug-page-id'
     }
     routes.unshift(
-      blogArchivesPages,
+      blogArchivePages,
       blogCategoryPages,
       blogPages,
       blogArchivies,

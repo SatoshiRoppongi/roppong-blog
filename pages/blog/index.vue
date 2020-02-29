@@ -4,7 +4,11 @@
       <span v-if="currentPage === 'newPosts'"> 新着記事一覧 </span>
       <span v-if="currentPage === 'category'">
         <span style="color:blue"> {{ categoryTitle }} </span>に関する記事
-        <b-badge pill>{{ posts.length }}件</b-badge>
+        <b-badge pill>{{ itemTotal }}件</b-badge>
+      </span>
+      <span v-if="currentPage === 'archive'">
+        <span style="color:blue"> {{ yearMonth }} </span>の投稿
+        <b-badge pill>{{ itemTotal }}件</b-badge>
       </span>
     </h1>
     <card v-for="post in posts" :key="post.sys.id" :item="post" />
@@ -37,13 +41,6 @@ export default {
       currentCategory: '' // currentPageがcategoryの時のみ使用
     }
   },
-  /*
-  props: {
-    id: {
-      type: String,
-      default: ''
-    }
-  }, */
   asyncData({ env, params, route }) {
     const perPage = 2 // 1ページあたりの記事件数
     let pageNumber = 1
@@ -56,6 +53,15 @@ export default {
       currentPage = pathSplited[2]
     }
     const currentCategory = currentPage === 'category' ? pathSplited[3] : ''
+    const yyyymm = currentPage === 'archive' ? pathSplited[3] : ''
+    let yearMonth = ''
+    let year = ''
+    let month = ''
+    if (yyyymm !== '') {
+      year = yyyymm.substr(0, 4)
+      month = yyyymm.substr(4)
+      yearMonth = `${year}年${month}月`
+    }
     return client
       .getEntries()
       .then((entries) => {
@@ -92,6 +98,16 @@ export default {
           ).fields.title
           posts = posts.filter((post) => post.categorySlug === currentCategory)
         }
+        // ページ種別がアーカイブならば、アーカイブの年月で投稿の絞り込みを行う。
+        if (currentPage === 'archive') {
+          posts = posts.filter(
+            (post) =>
+              post.sys.createdAt
+                .split('-')
+                .slice(0, 2)
+                .join('') === yyyymm
+          )
+        }
         const itemTotal = posts.length
         posts = posts.slice(perPage * (pageNumber - 1), perPage * pageNumber)
         return {
@@ -101,7 +117,9 @@ export default {
           itemTotal,
           currentPage,
           currentCategory,
-          categoryTitle
+          categoryTitle,
+          yearMonth,
+          yyyymm
         }
       })
       .catch(console.error)
@@ -117,6 +135,11 @@ export default {
           pageNumber === 1
             ? `/blog/category/${this.currentCategory}`
             : `/blog/category/${this.currentCategory}/page/${pageNumber}`
+      } else if (this.currentPage === 'archive') {
+        link =
+          pageNumber === 1
+            ? `/blog/archive/${this.yyyymm}`
+            : `/blog/archive/${this.yyyymm}/page/${pageNumber}`
       }
       return link
     }

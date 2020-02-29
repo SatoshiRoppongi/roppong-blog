@@ -38,7 +38,7 @@ export default {
       cards: [
         { title: '最近の投稿', pathName: 'blog-slug', body: [] },
         { title: 'カテゴリ', pathName: 'blog-category-slug', body: [] },
-        { title: 'アーカイブ', pathName: 'blog-archives-slug', body: [] },
+        { title: 'アーカイブ', pathName: 'blog-archive-slug', body: [] },
         { title: '最近のコメント', pathName: 'blog-slug', body: [] }
       ]
     }
@@ -93,7 +93,7 @@ export default {
     }
     this.cards[1].body = categories
     /* アーカイブ */
-    const archives = await client
+    const archive = await client
       .getEntries({
         content_type: 'blogPost',
         order: '-sys.createdAt'
@@ -103,22 +103,22 @@ export default {
           const yearMonthSplited = item.sys.createdAt.split('-')
           return yearMonthSplited[0] + yearMonthSplited[1]
         })
-        const archives = []
+        const archive = []
         const counts = {}
         for (let i = 0; i < yyyymm.length; i++) {
           const key = yyyymm[i]
           counts[key] = counts[key] ? counts[key] + 1 : 1
         }
         for (const key in counts) {
-          archives.push({
+          archive.push({
             title: key.substr(0, 4) + '年' + key.substr(4) + '月',
             slug: key,
             count: counts[key]
           })
         }
-        return archives
+        return archive
       })
-    this.cards[2].body = archives
+    this.cards[2].body = archive
     // const COMMENT_MAX_ENTRY = 5 // コメント表示件数
   }
 }

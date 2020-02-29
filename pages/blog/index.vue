@@ -29,6 +29,7 @@
 <script>
 import Card from '@/components/card.vue'
 import { createClient } from '@/plugins/contentful'
+import { PERPAGE } from '@/plugins/myutil'
 
 const client = createClient()
 export default {
@@ -43,7 +44,7 @@ export default {
     }
   },
   asyncData({ env, params, route }) {
-    const perPage = 2 // 1ページあたりの記事件数
+    const perPage = PERPAGE // 2 // 1ページあたりの記事件数
     let pageNumber = 1
     if (typeof route.params.id !== 'undefined') {
       pageNumber = parseInt(route.params.id)
@@ -127,7 +128,6 @@ export default {
   },
   methods: {
     linkGen(pageNumber) {
-      // todo:ここもページタイプによって可変に
       let link = ''
       if (this.currentPage === 'newPosts') {
         link = pageNumber === 1 ? '/blog' : `/blog/page/${pageNumber}`

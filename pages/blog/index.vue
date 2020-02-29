@@ -13,8 +13,9 @@
     </h1>
     <card v-for="post in posts" :key="post.sys.id" :item="post" />
     <b-pagination-nav
+      v-if="itemTotal >= perPage"
       :link-gen="linkGen"
-      :number-of-pages="Number(itemTotal / perPage)"
+      :number-of-pages="Math.ceil(itemTotal / perPage)"
       use-router
       pills
       size="lg"
@@ -129,7 +130,7 @@ export default {
       // todo:ここもページタイプによって可変に
       let link = ''
       if (this.currentPage === 'newPosts') {
-        link = pageNumber === 1 ? '/blog/' : `/blog/page/${pageNumber}`
+        link = pageNumber === 1 ? '/blog' : `/blog/page/${pageNumber}`
       } else if (this.currentPage === 'category') {
         link =
           pageNumber === 1

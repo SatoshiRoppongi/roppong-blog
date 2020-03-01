@@ -61,7 +61,13 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',
     '~/plugins/hook', // pluginsセクションではなく、ここ？
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-143514276-1'
+      }
+    ]
   ],
   /*
    ** Axios module configuration
@@ -238,8 +244,5 @@ export default {
           ]
         })
     }
-  },
-  googleAnalytics: {
-    id: 'UA-143514276-1'
   }
 }

@@ -60,7 +60,8 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',
-    '~/plugins/hook' // pluginsセクションではなく、ここ？
+    '~/plugins/hook', // pluginsセクションではなく、ここ？
+    '@nuxtjs/sitemap'
   ],
   /*
    ** Axios module configuration
@@ -176,5 +177,69 @@ export default {
         return position
       }
     }
+  },
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: 'https://roppong.com',
+    cacheTime: 1000 * 60 * 15,
+    routes() {
+      return cdaClient
+        .getEntries(ctfConfig.CTF_BLOG_POST_TYPE_ID)
+        .then((entries) => {
+          // 記事
+          const postPathList = entries.items.map(
+            (entry) => `/blog/${entry.fields.slug}`
+          )
+          // 記事一覧ページ(ページネーション対応)
+          // 全ての記事ページの数
+          const allPosts = entries.items.filter(
+            (item) => item.sys.contentType.sys.id === 'blogPost'
+          )
+          // カテゴリ
+          const categoryList = entries.items
+            .filter((item) => item.sys.contentType.sys.id === 'category')
+            .map((category) => {
+              const categoryPostCount = entries.items.filter(
+                (post) =>
+                  typeof post.fields.category !== 'undefined' &&
+                  post.fields.category.sys.id === category.sys.id
+              ).length
+              const categoryPageCount = Math.ceil(categoryPostCount / PERPAGE)
+              const categoryPath = `/blog/category/${category.fields.slug}`
+              const categoryPagePathList = [
+                ...Array(categoryPageCount).keys()
+              ].map((i) => `/blog/category/${categoryPath}/page/${i + 1}`)
+              return { categoryPath, categoryPagePathList }
+            })
+          const categoryPathList = categoryList.map(
+            (category) => category.categoryPath
+          )
+
+          // アーカイブ
+          const yyyymmList = allPosts
+            .map((post) =>
+              post.sys.createdAt
+                .split('-')
+                .slice(0, 2)
+                .join('')
+            )
+            .filter((elem, index, self) => self.indexOf(elem) === index)
+          const archivePagePathList = yyyymmList.map(
+            (yyyymm) => `/blog/archive/${yyyymm}`
+          )
+          // アーカイブ(ページネーション対応) 使用予定なし
+          // その他ページ
+          const miscPathList = ['/blog/about', '/blog/contact']
+          return [
+            ...postPathList,
+            ...categoryPathList,
+            ...archivePagePathList,
+            ...miscPathList
+          ]
+        })
+    }
+  },
+  googleAnalytics: {
+    id: 'UA-143514276-1'
   }
 }

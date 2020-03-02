@@ -30,7 +30,6 @@
       center
     ></b-img-lazy>
     <div v-html="$md.render(article.fields.body)" class="post-content"></div>
-    <p class="slug_date">{{ article.sys.updatedAt }}</p>
     <div class="comments">
       <vue-disqus
         :identifier="'post/' + article.fields.title"

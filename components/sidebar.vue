@@ -38,8 +38,8 @@ export default {
       cards: [
         { title: '最近の投稿', pathName: 'blog-slug', body: [] },
         { title: 'カテゴリ', pathName: 'blog-category-slug', body: [] },
-        { title: 'アーカイブ', pathName: 'blog-archive-slug', body: [] },
-        { title: '最近のコメント', pathName: 'blog-slug', body: [] }
+        { title: 'アーカイブ', pathName: 'blog-archive-slug', body: [] }
+        // { title: '最近のコメント', pathName: 'blog-slug', body: [] }
       ]
     }
   },

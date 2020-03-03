@@ -45,6 +45,16 @@ export default ({ app }, inject) => {
     permalinkSymbol: '' // §
   }).use(markdownItTocDoneRight)
   // md.use(require('markdown-it-imsize'))
+  md.use(require('markdown-it-podcast'), {
+    url: '',
+    height: 200,
+    auto_play: false,
+    hide_related: false,
+    show_comments: false,
+    show_user: true,
+    show_reposts: false,
+    visual: true
+  })
 
   const defaultRender =
     md.renderer.rules.link_open ||

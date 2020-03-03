@@ -31,6 +31,7 @@
     "markdown-it-footnote": "^3.0.2",
     "markdown-it-imsize": "^2.0.1",
     "markdown-it-mark": "^3.0.0",
+    "markdown-it-podcast": "^0.2.3",
     "markdown-it-sanitizer": "^0.4.3",
     "markdown-it-table-of-contents": "^0.4.4",
     "markdown-it-toc": "^1.1.0",

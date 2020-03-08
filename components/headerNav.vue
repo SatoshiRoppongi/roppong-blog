@@ -24,6 +24,7 @@
         <b-navbar-nav class="ml-auto">
           <b-nav-item to="/blog/about">このブログについて</b-nav-item>
           <b-nav-item to="/blog/contact">お問い合わせ</b-nav-item>
+          <!--
 
           <b-nav-form>
             <b-form-input
@@ -36,7 +37,6 @@
             >
           </b-nav-form>
 
-          <!--
           <b-nav-item-dropdown text="Lang" right>
             <b-dropdown-item href="#">EN</b-dropdown-item>
             <b-dropdown-item href="#">ES</b-dropdown-item>

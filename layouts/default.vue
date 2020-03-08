@@ -1,19 +1,22 @@
 <template>
   <div>
-    <Header />
-    <b-container>
-      <b-row class="main">
-        <b-col cols="12" md="8">
-          <main>
-            <nuxt />
-          </main>
-        </b-col>
-        <b-col md="4">
-          <Sidebar />
-        </b-col>
-      </b-row>
-    </b-container>
-    <Footer />
+    <nuxt v-if="this.$route.path === '/'" class="landing" />
+    <div v-else class="blog">
+      <Header />
+      <b-container>
+        <b-row class="main">
+          <b-col cols="12" md="8">
+            <main>
+              <nuxt />
+            </main>
+          </b-col>
+          <b-col md="4">
+            <Sidebar />
+          </b-col>
+        </b-row>
+      </b-container>
+      <Footer />
+    </div>
   </div>
 </template>
 <script>
@@ -27,6 +30,12 @@ export default {
     Footer,
     Sidebar
   }
+  /* ,
+  mounted() {
+    console.log('test')
+    console.log(this.$route.path)
+  }
+  */
 }
 </script>
 

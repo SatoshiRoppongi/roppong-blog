@@ -157,7 +157,7 @@ export default {
   border-bottom: 2px solid #1b73ba;
   box-sizing: border-box;
   font-size: 18px;
-  margin: 0 0 20px;
+  margin: 0 0 30px;
   padding: 7px 0 5px 10px;
 }
 /deep/ h3 {
@@ -199,10 +199,15 @@ export default {
     position: relative;
     z-index: 10; // h2のpadding部分より前面に来るように
   }
+
+  p {
+    margin: 0 0 30px;
+  }
   .table-of-contents {
     background: #f3f3f3;
     border: 1px solid #ccc;
     padding: 5px 10px;
+    margin: 0 0 20px;
     width: fit-content;
     ul {
       padding-left: 24px;

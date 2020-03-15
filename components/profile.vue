@@ -40,7 +40,9 @@
           </b-list-group-item>
         </b-list-group>
       </div>
-      <b-button href="#" variant="primary">詳細プロフィールはこちら</b-button>
+      <b-button href="/blog/profile" variant="primary"
+        >詳細プロフィールはこちら</b-button
+      >
     </b-card>
   </div>
 </template>

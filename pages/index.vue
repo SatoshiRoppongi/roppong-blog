@@ -17,8 +17,6 @@
       roppong.com
       <b-button href="blog">blog</b-button>
     </p>
-    <b-button src="blog">blog</b-button>
-    <b-button variant="danger" class="z-index: 100">Button</b-button>
     <div class="video-wrap">
       <div class="pattern"></div>
       <video src="landing.mp4" autoplay loop width="100%" muted>
@@ -72,7 +70,7 @@ video {
 }
 div p {
   color: #fff;
-  font-size: 500%;
+  font-size: calc(30px + 0.25vw); /* 500%; */
   margin: 20%;
   position: relative;
   z-index: 3;

@@ -3,6 +3,9 @@
     <nuxt v-if="this.$route.path === '/'" class="landing" />
     <div v-else class="blog">
       <Header />
+      <template>
+        <adsbygoogle ad-slot="123456789" />
+      </template>
       <b-container>
         <b-row class="main">
           <b-col cols="12" md="8">
@@ -15,6 +18,9 @@
           </b-col>
         </b-row>
       </b-container>
+      <template>
+        <adsbygoogle ad-slot="111111111" />
+      </template>
       <Footer />
     </div>
   </div>

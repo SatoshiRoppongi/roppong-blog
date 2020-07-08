@@ -8,6 +8,7 @@ const ctfConfig = getConfigForKeys([
   'CTF_CDA_ACCESS_TOKEN'
 ])
 const cdaClient = createClient(ctfConfig)
+const domain = process.env.BASE_URL.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)[1]
 
 export default {
   mode: 'universal',
@@ -66,6 +67,15 @@ export default {
       '@nuxtjs/google-analytics',
       {
         id: 'UA-143514276-1'
+      }
+    ],
+    [
+      '@nuxtjs/google-adsense',
+      {
+        id: process.env.GA_ADSENSE_ID,
+        pageLevelAds: true,
+        analyticsUacct: process.env.GA_TRACKING_ID, // アナリティクスと連携する場合のみ必要
+        analyticsDomainName: domain // アナリティクスと連携する場合のみ必要
       }
     ]
   ],

@@ -1,5 +1,2 @@
 User-agent:*
-Disallow:/blog/category/
-Disallow:/blog/archive/
-
 Sitemap:https://roppong.com/sitemap.xml

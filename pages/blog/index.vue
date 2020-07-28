@@ -23,6 +23,9 @@
       class="my-5"
     >
     </b-pagination-nav>
+    <template>
+      <adsbygoogle ad-slot="7309254084" />
+    </template>
   </section>
 </template>
 

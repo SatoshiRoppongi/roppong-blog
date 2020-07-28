@@ -15,9 +15,11 @@
           </b-col>
         </b-row>
       </b-container>
+      <!--
       <template>
         <adsbygoogle ad-slot="7309254084" />
       </template>
+      -->
       <Footer />
     </div>
   </div>

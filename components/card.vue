@@ -3,7 +3,7 @@
     <b-card class="text-center">
       {{ createdAt }}
       <span v-if="updatedAt !== createdAt"> (更新日：{{ updatedAt }}) </span>
-      <b-badge pill>New</b-badge>
+      <b-badge v-if="dateDiff < 15" pill>New</b-badge>
       <nuxt-link
         :to="{
           name: 'blog-slug',
@@ -57,6 +57,12 @@ export default {
     },
     updatedAt() {
       return this.dateFormat(this.item.sys.updatedAt)
+    },
+    dateDiff() {
+      const dateDiff =
+        (new Date() - new Date(this.dateFormat(this.item.sys.createdAt))) /
+        86400000
+      return dateDiff
     },
     fields() {
       return this.item.fields

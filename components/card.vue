@@ -80,8 +80,11 @@ export default {
     },
     abstruct() {
       if (this.item.fields.body) {
-        const endStr = this.item.fields.body.indexOf('[[toc]]')
+        let endStr = this.item.fields.body.indexOf('[[toc]]')
         const maxStr = 200
+        if (endStr === -1) {
+          endStr = maxStr
+        }
         return (
           this.item.fields.body
             .substring(0, Math.min(endStr, maxStr)) // 目次までの or maxStr文字数まで 表示する

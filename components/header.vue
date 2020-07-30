@@ -8,7 +8,7 @@
       >
         <b-card-body>
           <nuxt-link to="/blog">
-            <b-img src="~/static/logo.png"> </b-img>
+            <b-img src="~/static/logo.png" fluid> </b-img>
           </nuxt-link>
         </b-card-body>
       </b-card>

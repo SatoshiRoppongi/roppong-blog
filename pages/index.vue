@@ -15,7 +15,6 @@
       </b-jumbotron>
     </div>
     <p id="copyright">(c)2020 Satoshi Roppongi</p>
-    v>
   </div>
 </template>
 

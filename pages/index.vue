@@ -1,86 +1,66 @@
 <template>
-  <!--
-  <div>
-    <nuxt-link to="blog">
-      blog
-    </nuxt-link>
-    <b-jumbotron
-      header="BootstrapVue"
-      lead="Bootstrap v4 Components for Vue.js 2"
-    >
-      <p>For more information visit website</p>
-      <b-button variant="primary" href="blog">More Info</b-button>
-    </b-jumbotron>
-    -->
-  <div class="overlay">
-    <p>
-      roppong.com
-      <b-button href="blog">blog</b-button>
-    </p>
-    <div class="video-wrap">
-      <div class="pattern"></div>
-      <video src="landing.mp4" autoplay loop width="100%" muted>
-        <img src="https://picsum.photos/900/300/?random" alt="Placeholder" />
-        <p>動画を再生するにはvideoタグをサポートしたブラウザが必要です。</p>
-      </video>
+  <div class="wrap">
+    <video
+      id="bg-video"
+      src="landing.mp4"
+      poster="https://picsum.photos/900/300/?random"
+      autoplay
+      loop
+      muted
+    ></video>
+    <div class="header-title">
+      <b-jumbotron header="roppong.com" lead="Inside my brain">
+        <p>Wanna check my blog? Go to here below</p>
+        <b-button variant="primary" href="blog">roppong blog</b-button>
+      </b-jumbotron>
     </div>
-    <div class="fooger">
-      <span id="copyright">(c)2020 Satoshi Roppongi</span>
-    </div>
+    <p id="copyright">(c)2020 Satoshi Roppongi</p>
+    v>
   </div>
 </template>
 
 <script></script>
 <style>
-.overlay {
-  margin: 0;
-  padding: 0;
-  /*  IE8以下の代替の背景画像  */
-  background-attachment: fixed;
-  background-size: cover;
-}
-video {
-  /*
-  position: relative;
-  z-index: -100;
-  */
+#bg-video {
   position: fixed;
   right: 0;
-  top: 0;
-  z-index: 1;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: -100;
+  background: url('https://picsum.photos/900/300/?random') no-repeat;
+  background-size: cover;
 }
-.pattern {
-  width: 100%;
-  height: 100%;
-  background-image: -webkit-gradient(
-      linear,
-      0 0,
-      0 100%,
-      color-stop(0.5, transparent),
-      color-stop(0.5, #ffffff),
-      to(#ffffff)
-    ),
-    -webkit-gradient(linear, 0 0, 100% 0, color-stop(0.5, transparent), color-stop(0.5, #ffffff), to(#ffffff));
-  -webkit-background-size: 5px 5px;
-  position: fixed;
-  top: 0;
-  left: 0;
+.header-title {
+  position: relative;
   z-index: 2;
-  opacity: 0.1;
-}
-div p {
-  color: #fff;
-  font-size: calc(30px + 0.25vw); /* 500%; */
-  margin: 20%;
-  position: relative;
-  z-index: 3;
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  margin: auto;
 }
-div div span {
-  z-index: 3;
-  color: #fff;
-  font-size: 100%;
-  position: relative;
-  text-align: right;
+.wrap {
+  height: 100vh;
+  background: linear-gradient(
+    -45deg,
+    rgba(4, 114, 124, 0.4),
+    rgba(17, 66, 99, 0.6)
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#copyright {
+  position: absolute;
+  bottom: 0;
+  padding: 30px 30px;
+  text-align: center;
+  width: 80%;
+  color: aliceblue;
 }
 </style>

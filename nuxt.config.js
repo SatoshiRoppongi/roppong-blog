@@ -196,7 +196,7 @@ export default {
   },
   sitemap: {
     path: '/sitemap.xml',
-    hostname: 'https://roppong.com',
+    hostname: 'https://www.roppong.com',
     cacheTime: 1000 * 60 * 15,
     routes() {
       return cdaClient

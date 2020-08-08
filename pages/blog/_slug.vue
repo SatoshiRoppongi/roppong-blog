@@ -203,6 +203,11 @@ export default {
   p {
     margin: 0 0 30px;
   }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
   .table-of-contents {
     background: #f3f3f3;
     border: 1px solid #ccc;

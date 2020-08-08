@@ -47,7 +47,7 @@ export default {
     }
   },
   asyncData({ env, params, route }) {
-    const perPage = PERPAGE // 2 // 1ページあたりの記事件数
+    const perPage = PERPAGE // 1ページあたりの記事件数
     let pageNumber = 1
     if (typeof route.params.id !== 'undefined') {
       pageNumber = parseInt(route.params.id)

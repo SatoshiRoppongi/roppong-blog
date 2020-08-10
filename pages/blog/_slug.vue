@@ -46,7 +46,14 @@ const client = createClient()
 export default {
   head() {
     return {
-      title: this.article.fields.title
+      title: this.article.fields.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.article.fields.metaDescription
+        }
+      ]
     }
   },
   props: {

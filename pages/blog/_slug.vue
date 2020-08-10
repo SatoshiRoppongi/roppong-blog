@@ -44,6 +44,11 @@ import { createClient } from '~/plugins/contentful'
 
 const client = createClient()
 export default {
+  head() {
+    return {
+      title: this.article.fields.title
+    }
+  },
   props: {
     id: {
       type: String,

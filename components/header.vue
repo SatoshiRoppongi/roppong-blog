@@ -8,7 +8,8 @@
       >
         <b-card-body>
           <nuxt-link to="/blog">
-            <b-img src="~/static/logo.png" fluid> </b-img>
+            <b-img-lazy src="~/static/logo.png" fluid alt="roppong.com logo">
+            </b-img-lazy>
           </nuxt-link>
         </b-card-body>
       </b-card>

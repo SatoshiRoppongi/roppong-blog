@@ -22,6 +22,7 @@
               width="50"
               height="50"
               fluid
+              alt="github logo"
           /></b-list-group-item>
           <b-list-group-item href="https://www.strava.com/athletes/43984091">
             <b-img-lazy
@@ -29,6 +30,7 @@
               width="50"
               height="50"
               fluid
+              alt="strava logo"
           /></b-list-group-item>
           <b-list-group-item href="https://www.youtube.com/user/s6hori">
             <b-img-lazy
@@ -36,6 +38,7 @@
               width="50"
               height="50"
               fluid
+              alt="youtube logo"
             />
           </b-list-group-item>
         </b-list-group>

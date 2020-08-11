@@ -13,13 +13,13 @@
       loop
       muted
     ></video>
-    <b-img
+    <b-img-lazy
       id="bg-img-for-mobile"
       src="landing_page_img.png"
       fluid
       alt="background image"
     >
-    </b-img>
+    </b-img-lazy>
     <p id="copyright">(c)2020 Satoshi Roppongi</p>
   </b-jumbotron>
 </template>

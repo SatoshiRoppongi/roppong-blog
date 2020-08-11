@@ -76,8 +76,8 @@ export default {
         : 'https://picsum.photos/900/300/?random'
     },
     eyeCatchImageAlt() {
-      return this.item.fields.images
-        ? this.item.fields.images.fields.description
+      return this.article.fields.images
+        ? this.article.fields.images.fields.description
         : 'random eye catch image'
     }
   },

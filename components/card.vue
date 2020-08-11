@@ -28,7 +28,7 @@
       >
         {{ categoryTitle }}
       </b-badge>
-      <b-card-img-lazy :src="eyeCatchImageUrl" />
+      <b-card-img-lazy :src="eyeCatchImageUrl" :alt="eyeCatchImageAlt" />
       <b-card-text v-html="abstruct" class="text-left my-5"> </b-card-text>
       <nuxt-link
         :to="{
@@ -83,6 +83,11 @@ export default {
       return this.item.eyeCatchImageUrl
         ? 'https:' + this.item.eyeCatchImageUrl
         : 'https://picsum.photos/900/300/?random'
+    },
+    eyeCatchImageAlt() {
+      return this.item.fields.images
+        ? this.item.fields.images.fields.description
+        : 'random eye catch image'
     },
     abstruct() {
       if (this.item.fields.body) {

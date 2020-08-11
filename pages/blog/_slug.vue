@@ -24,8 +24,8 @@
     <!-- 画像をここに -->
     <b-img-lazy
       :src="eyeCatchImageUrl"
+      :alt="eyeCatchImageAlt"
       fluid
-      alt="Eye catch image"
       class="my-3"
       center
     ></b-img-lazy>
@@ -74,6 +74,11 @@ export default {
       return this.article.eyeCatchImageUrl
         ? 'https:' + this.article.eyeCatchImageUrl
         : 'https://picsum.photos/900/300/?random'
+    },
+    eyeCatchImageAlt() {
+      return this.item.fields.images
+        ? this.item.fields.images.fields.description
+        : 'random eye catch image'
     }
   },
   asyncData({ env, params }) {

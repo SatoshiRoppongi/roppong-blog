@@ -40,6 +40,19 @@ export default {
   components: {
     Card
   },
+  head() {
+    return {
+      title: 'roppong blog のトップページ',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            '趣味のランニング・日々勉強になったこと・面白いと思ったことを中心に、みなさまのお役に立つかもしれない情報を発信しています。'
+        }
+      ]
+    }
+  },
   data() {
     return {
       currentPage: 'newPosts', // 新着記事

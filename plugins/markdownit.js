@@ -1,7 +1,23 @@
 import MarkdownIt from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
-import hljs from 'highlight.js'
+// import hljs from 'highlight.js'
+
+import hljs from 'highlight.js/lib/highlight'
+
+import javascript from 'highlight.js/lib/languages/javascript'
+import css from 'highlight.js/lib/languages/css'
+import python from 'highlight.js/lib/languages/python'
+import bash from 'highlight.js/lib/languages/bash'
+import sh from 'highlight.js/lib/languages/shell'
+import plain from 'highlight.js/lib/languages/plaintext'
+
+hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('css', css)
+hljs.registerLanguage('python', python)
+hljs.registerLanguage('bash', bash)
+hljs.registerLanguage('sh', sh)
+hljs.registerLanguage('plain', plain)
 /* refs https://izm51.com/posts/markdown-it-target-blank-anchor */
 
 export default ({ app }, inject) => {
@@ -27,7 +43,7 @@ export default ({ app }, inject) => {
       }
       return (
         '<pre class="hljs"><code>' +
-        hljs.highlight('plaintext', code, true).value +
+        hljs.highlight('plain', code, true).value +
         '</code></pre>'
       )
     }

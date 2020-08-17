@@ -21,6 +21,7 @@
       size="lg"
       align="center"
       class="my-5"
+      role="navigation"
     >
     </b-pagination-nav>
     <template>

@@ -1,7 +1,9 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand to="/blog"><Homeicon /></b-navbar-brand>
+    <b-navbar toggleable="lg" type="light" variant="info">
+      <b-navbar-brand aria-label="ホームへ" to="/blog"
+        ><Homeicon
+      /></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

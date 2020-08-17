@@ -13,7 +13,9 @@
         }"
         class="wrapper"
       >
-        <b-card-title center class="mt-3"> {{ title }} </b-card-title>
+        <b-card-title title-tag="h2" center class="mt-3">
+          {{ title }}
+        </b-card-title>
       </nuxt-link>
       <b-badge
         v-if="categorySlug"

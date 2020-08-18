@@ -5,7 +5,7 @@
         <b-card-img-lazy :src="imageurl" alt="my face" top width="30" />
       </div>
       <div class="mt-1">
-        <b-card-title>
+        <b-card-title title-tag="h2">
           ろっぽん
         </b-card-title>
       </div>

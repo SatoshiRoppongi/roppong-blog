@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="light" variant="info">
+    <b-navbar toggleable="lg" type="dark" variant="danger">
       <b-navbar-brand aria-label="ホームへ" to="/blog"
         ><Homeicon
       /></b-navbar-brand>
@@ -17,14 +17,16 @@
               params: { slug: item.slug }
             }"
           >
-            {{ item.name }}
+            <b>
+              {{ item.name }}
+            </b>
           </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/blog/about">このブログについて</b-nav-item>
-          <b-nav-item to="/blog/contact">お問い合わせ</b-nav-item>
+          <b-nav-item to="/blog/about"><b>このブログについて</b></b-nav-item>
+          <b-nav-item to="/blog/contact"><b>お問い合わせ</b></b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>

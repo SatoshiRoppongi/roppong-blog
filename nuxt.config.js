@@ -26,6 +26,23 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
+    script: [
+      {
+        /* The core Firebase JS SDK is always required and must be listed first */
+        src: '/__/firebase/7.19.0/firebase-app.js',
+        body: true
+      },
+      {
+        /* TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries */
+        src: '/__/firebase/7.19.0/firebase-analytics.js',
+        body: true
+      },
+      {
+        /* Initialize Firebase */
+        src: '/__/firebase/init.js',
+        body: true
+      }
+    ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   /*

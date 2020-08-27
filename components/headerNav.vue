@@ -18,7 +18,7 @@
             }"
           >
             <b>
-              {{ item.name }}
+              {{ item.title }}
             </b>
           </b-nav-item>
         </b-navbar-nav>
@@ -34,38 +34,16 @@
 </template>
 <script>
 import Homeicon from '@/components/homeicon.vue'
-import { createClient } from '~/plugins/contentful'
+import { mapGetters } from 'vuex'
 
-const client = createClient()
 export default {
   components: {
     Homeicon
   },
-  data() {
-    return {
-      navBarCategoryMenu: []
-    }
-  },
-  async mounted() {
-    await client
-      .getEntries({
-        content_type: 'category',
-        order: 'fields.sort'
-      })
-      .then((entries) => {
-        const categories = entries.items.filter(
-          (item) => item.sys.contentType.sys.id === 'category'
-        )
-        this.navBarCategoryMenu.push(
-          ...categories.map((category) => {
-            return {
-              name: category.fields.title,
-              slug: category.fields.slug
-            }
-          })
-        )
-      })
-      .catch(console.error)
+  computed: {
+    ...mapGetters({
+      navBarCategoryMenu: 'navCategoryInfo'
+    })
   }
 }
 </script>

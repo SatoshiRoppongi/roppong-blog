@@ -26,100 +26,25 @@
 </template>
 <script>
 import Profile from '@/components/profile.vue'
-import { createClient } from '~/plugins/contentful'
 
-const client = createClient()
 export default {
   components: {
     Profile
   },
-  data() {
-    return {
-      cards: [
-        { title: '最近の投稿', pathName: 'blog-slug', body: [] },
-        { title: 'カテゴリ', pathName: 'blog-category-slug', body: [] },
-        { title: 'アーカイブ', pathName: 'blog-archive-slug', body: [] }
+  computed: {
+    cards() {
+      /* 最近の投稿 */
+      const POST_MAX_ENTRY = 5 // 投稿表示件数（取得件数)
+      const recentPost = this.$store.getters.postSummaries(POST_MAX_ENTRY)
+      const categories = this.$store.getters.navCategoryInfoWithCount
+      const archives = this.$store.getters.archives
+      return [
+        { title: '最近の投稿', pathName: 'blog-slug', body: recentPost },
+        { title: 'カテゴリ', pathName: 'blog-category-slug', body: categories },
+        { title: 'アーカイブ', pathName: 'blog-archive-slug', body: archives }
         // { title: '最近のコメント', pathName: 'blog-slug', body: [] }
       ]
     }
-  },
-  async mounted() {
-    /* 最近の投稿 */
-    const POST_MAX_ENTRY = 5 // 投稿表示件数（取得件数)
-    const recentPost = await client
-      .getEntries({
-        content_type: 'blogPost',
-        order: '-sys.createdAt',
-        limit: POST_MAX_ENTRY
-      })
-      .then((entries) => {
-        return entries.items.map((entry) => {
-          return {
-            title: entry.fields.title,
-            slug: entry.fields.slug,
-            createdAt: entry.sys.createdAt
-          }
-        })
-      })
-      .catch(console.error)
-    this.cards[0].body = recentPost
-
-    /* カテゴリ */
-    const categories = await client
-      .getEntries({
-        content_type: 'category',
-        order: 'fields.sort'
-      })
-      .then((entries) => {
-        return entries.items.map((entry) => {
-          return {
-            title: entry.fields.title,
-            slug: entry.fields.slug,
-            id: entry.sys.id
-          }
-        })
-      })
-    for (const category of categories) {
-      const postCount = await client
-        .getEntries({
-          content_type: 'blogPost'
-        })
-        .then((posts) => {
-          return posts.items.filter((entry) => {
-            return entry.fields.category.sys.id === category.id
-          }).length
-        })
-      category.count = postCount
-    }
-    this.cards[1].body = categories
-    /* アーカイブ */
-    const archive = await client
-      .getEntries({
-        content_type: 'blogPost',
-        order: '-sys.createdAt'
-      })
-      .then((entries) => {
-        const yyyymm = entries.items.map((item) => {
-          const yearMonthSplited = item.sys.createdAt.split('-')
-          return yearMonthSplited[0] + yearMonthSplited[1]
-        })
-        const archive = []
-        const counts = {}
-        for (let i = 0; i < yyyymm.length; i++) {
-          const key = yyyymm[i]
-          counts[key] = counts[key] ? counts[key] + 1 : 1
-        }
-        for (const key in counts) {
-          archive.push({
-            title: key.substr(0, 4) + '年' + key.substr(4) + '月',
-            slug: key,
-            count: counts[key]
-          })
-        }
-        return archive
-      })
-    this.cards[2].body = archive
-    // const COMMENT_MAX_ENTRY = 5 // コメント表示件数
   }
 }
 </script>

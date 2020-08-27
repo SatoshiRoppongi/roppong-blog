@@ -175,6 +175,7 @@ export default {
           // その他ページ
           const miscPathList = ['/blog/about', '/blog/contact']
           return [
+            '/blog',
             ...postPathList,
             ...categoryPathList,
             // ...basePagePathList,
@@ -191,6 +192,7 @@ export default {
     CTF_BLOG_POST_TYPE_ID: ctfConfig.CTF_BLOG_POST_TYPE_ID
   },
   router: {
+    middleware: ['getContentful'],
     // 現在Nuxt.jsのバグでページ内アンカーリンク付きのURLを直接開いた際にその位置にスクロールしない
     // バグの暫定的な対処:https://isoppp.com/note/2018-06-20/add1-nuxt-firebase-blog-markdown-process/
     scrollBehavior(to, from, savedPosition) {

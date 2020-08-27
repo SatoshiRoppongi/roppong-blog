@@ -2,7 +2,7 @@
   <div>
     <b-card tag="article" style="max-width: 20rem;" class="text-center">
       <div class="mx-5">
-        <b-card-img-lazy :src="imageurl" alt="my face" top width="30" />
+        <b-card-img-lazy :src="imageUrl" alt="my face" top width="30" />
       </div>
       <div class="mt-1">
         <b-card-title title-tag="h2">
@@ -50,25 +50,14 @@
   </div>
 </template>
 <script>
-import { createClient } from '@/plugins/contentful'
-
-const client = createClient()
 export default {
-  data() {
-    return {
-      imageurl: ''
+  computed: {
+    imageUrl() {
+      const imgUrl = this.$store.state.postImages[0].fields.image.fields.file
+        .url
+      const imgAdjust = '?fit=thumb&f=top_left&h=200&w=200&r=180'
+      return 'https:' + imgUrl + imgAdjust
     }
-  },
-  async mounted() {
-    await client
-      .getEntries({ 'sys.id': '6qL3UUnrtrcFIrF9znLpea' })
-      .then((entries) => {
-        this.imageurl =
-          'https:' +
-          entries.items[0].fields.image.fields.file.url +
-          '?fit=thumb&f=top_left&h=200&w=200&r=180'
-      })
-      .catch(console.error)
   }
 }
 </script>

@@ -23,6 +23,7 @@
       class="my-5"
       role="navigation"
     >
+      <a role="menuitem"></a>
     </b-pagination-nav>
     <template>
       <adsbygoogle ad-slot="7309254084" />

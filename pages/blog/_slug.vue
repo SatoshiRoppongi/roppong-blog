@@ -22,13 +22,13 @@
       <div v-if="updatedAt !== createdAt">更新日：{{ updatedAt }}</div>
     </div>
     <!-- 画像をここに -->
-    <b-img-lazy
+    <b-img
       :src="eyeCatchImageUrl"
       :alt="eyeCatchImageAlt"
       fluid
       class="my-3"
       center
-    ></b-img-lazy>
+    ></b-img>
     <div v-html="$md.render(article.fields.body)" class="post-content"></div>
     <div class="comments">
       <vue-disqus

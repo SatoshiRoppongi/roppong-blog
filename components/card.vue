@@ -26,11 +26,11 @@
           }
         }"
         class="mb-2"
-        variant="info"
+        variant="danger"
       >
         {{ categoryTitle }}
       </b-badge>
-      <b-card-img-lazy :src="eyeCatchImageUrl" :alt="eyeCatchImageAlt" />
+      <b-card-img :src="eyeCatchImageUrl" :alt="eyeCatchImageAlt" />
       <b-card-text v-html="abstruct" class="text-left my-5"> </b-card-text>
       <nuxt-link
         :to="{

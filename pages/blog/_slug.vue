@@ -40,9 +40,6 @@
   </section>
 </template>
 <script>
-import { createClient } from '~/plugins/contentful'
-
-const client = createClient()
 export default {
   head() {
     return {
@@ -81,34 +78,20 @@ export default {
         : 'random eye catch image'
     }
   },
-  asyncData({ env, params }) {
-    return client
-      .getEntries(env.CTF_BLOG_POST_TYPE_ID)
-      .then((entries) => {
-        const article = entries.items.find(
-          (article) => article.fields.slug === params.slug
-        )
-        if (article.fields.images) {
-          const eyeCatchImage = entries.includes.Asset.find(
-            (asset) => asset.sys.id === article.fields.images.sys.id
-          )
-          article.eyeCatchImageUrl = eyeCatchImage.fields.file.url
-        }
-        const categories = entries.items.filter(
-          (item) => item.sys.contentType.sys.id === 'category'
-        )
-        if (article.fields.category) {
-          const category = categories.find(
-            (category) => category.sys.id === article.fields.category.sys.id
-          )
-          article.categoryTitle = category.fields.title
-          article.categorySlug = category.fields.slug
-        }
-        return {
-          article
-        }
-      })
-      .catch(console.error)
+  asyncData({ env, params, store }) {
+    const article = store.getters.postFromSlug(params.slug)
+    const imageInfo = article.fields.images
+    if (imageInfo) {
+      const eyeCatchImage = store.getters.eyeCatchImage(imageInfo.sys.id)
+      article.eyeCatchImageUrl = eyeCatchImage.fields.file.url
+    }
+    const categoryInfo = article.fields.category
+    if (categoryInfo) {
+      const category = store.getters.category(article.fields.category.sys.id)
+      article.categoryTitle = category.fields.title
+      article.categorySlug = category.fields.slug
+    }
+    return { article }
   },
   methods: {
     dateFormat(dateString) {

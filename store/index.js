@@ -6,7 +6,8 @@ const client = createClient()
 export const state = () => ({
   posts: [],
   categories: [],
-  postImages: [] // only profile face
+  postImages: [], // only profile face
+  includes: {} // contains entry [] and Assets []
 })
 
 export const mutations = {
@@ -18,6 +19,9 @@ export const mutations = {
   },
   setPostImages(state, payload) {
     state.postImages = payload
+  },
+  setIncludes(state, payload) {
+    state.includes = payload
   }
 }
 
@@ -52,6 +56,14 @@ export const actions = {
       .getEntries({ 'sys.id': '6qL3UUnrtrcFIrF9znLpea' })
       .then((res) => commit('setPostImages', res.items))
       .catch(console.error)
+  },
+
+  async getIncludes({ commit }) {
+    await client
+      .getEntries({
+        content_type: process.env.CTF_BLOG_POST_TYPE_ID
+      })
+      .then((res) => commit('setIncludes', res.includes))
   }
 }
 
@@ -77,6 +89,20 @@ export const getters = {
       }
     })
   },
+  // slugから投稿を取得するgetter
+  postFromSlug: (state) => (slug) => {
+    return state.posts.find((post) => post.fields.slug === slug)
+  },
+  // id からeyeCatch情報を取得する
+  eyeCatchImage: (state) => (imageId) => {
+    return state.includes.Asset.find((asset) => asset.sys.id === imageId)
+  },
+
+  // category id から、カテゴリを取得する
+  category: (state) => (categoryId) => {
+    return state.includes.Entry.find((entry) => entry.sys.id === categoryId)
+  },
+
   // カテゴリに含まれる投稿数
   postCountInCategory: (state) => (categoryId) => {
     return state.posts.filter((post) => {

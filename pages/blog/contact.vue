@@ -3,6 +3,11 @@
     <h1 class="posts_title text-center">
       お問い合わせ
     </h1>
+    <div>
+      お問い合わせフォームは現時点未実装です 何かある方はこちらへ。
+      satoshiroppongi@gmail.com
+    </div>
+    <!--
     <b-form
       @reset="onReset"
       v-if="show"
@@ -69,6 +74,7 @@
       <b-button type="submit" variant="primary">送信</b-button>
       <b-button type="reset" variant="danger">リセット</b-button>
     </b-form>
+    -->
   </div>
 </template>
 

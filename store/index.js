@@ -93,6 +93,47 @@ export const getters = {
   postFromSlug: (state) => (slug) => {
     return state.posts.find((post) => post.fields.slug === slug)
   },
+  // 年月(yyyymm)で投稿を取得するgetter
+  postFromMonth: (state) => (yyyymm) => {
+    return state.posts.filter(
+      (post) =>
+        post.sys.createdAt
+          .split('-')
+          .splice(0, 2)
+          .join('') === yyyymm
+    )
+  },
+  // カテゴリslugから投稿を取得する
+  postsFromCategorySlug: (state) => (slug) => {
+    const entryInfo = state.includes.Entry.find(
+      (entry) => entry.fields.slug === slug
+    )
+    if (entryInfo) {
+      const searchId = entryInfo.sys.id
+      return state.posts.filter(
+        (post) => post.fields.category.sys.id === searchId
+      )
+    } else {
+      return []
+    }
+  },
+
+  // postオブジェクトから、アイキャッチイメージ, カテゴリ情報が付与されたオブジェクトを返却
+  articleInfo: (state, getters) => (post) => {
+    const article = post
+    const imageInfo = article.fields.images
+    if (imageInfo) {
+      const eyeCatchImage = getters.eyeCatchImage(imageInfo.sys.id)
+      article.eyeCatchImageUrl = eyeCatchImage.fields.file.url
+    }
+    const categoryInfo = article.fields.category
+    if (categoryInfo) {
+      const category = getters.category(article.fields.category.sys.id)
+      article.categoryTitle = category.fields.title
+      article.categorySlug = category.fields.slug
+    }
+    return article
+  },
   // id からeyeCatch情報を取得する
   eyeCatchImage: (state) => (imageId) => {
     return state.includes.Asset.find((asset) => asset.sys.id === imageId)
@@ -103,11 +144,16 @@ export const getters = {
     return state.includes.Entry.find((entry) => entry.sys.id === categoryId)
   },
 
-  // カテゴリに含まれる投稿数
-  postCountInCategory: (state) => (categoryId) => {
+  // postをカテゴリIDで絞り込み返却
+  postInCategory: (state) => (categoryId) => {
     return state.posts.filter((post) => {
       return post.fields.category.sys.id === categoryId
-    }).length
+    })
+  },
+
+  // カテゴリに含まれる投稿数
+  postCountInCategory: (state, getters) => (categoryId) => {
+    return getters.postInCategory(categoryId).length
   },
   // navCategoryInfo (サイドバー用)
   navCategoryInfoWithCount(state, getters) {
@@ -117,6 +163,7 @@ export const getters = {
     }
     return categories
   },
+  // 記事情報
   // アーカイブ情報 (サイドバー用)
   archives(state) {
     const archives = []

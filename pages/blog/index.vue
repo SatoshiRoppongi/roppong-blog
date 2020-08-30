@@ -33,10 +33,8 @@
 
 <script>
 import Card from '@/components/card.vue'
-import { createClient } from '@/plugins/contentful'
 import { PERPAGE } from '@/plugins/myutil'
 
-const client = createClient()
 export default {
   transition: 'slide-left',
   components: {
@@ -61,7 +59,7 @@ export default {
       currentCategory: '' // currentPageがcategoryの時のみ使用
     }
   },
-  asyncData({ env, params, route }) {
+  asyncData({ env, params, route, store }) {
     const perPage = PERPAGE // 1ページあたりの記事件数
     let pageNumber = 1
     if (typeof route.params.id !== 'undefined') {
@@ -82,67 +80,37 @@ export default {
       month = yyyymm.substr(4)
       yearMonth = `${year}年${month}月`
     }
-    return client
-      .getEntries()
-      .then((entries) => {
-        // 投稿記事を抽出する
-        let posts = entries.items.filter(
-          (item) => item.sys.contentType.sys.id === 'blogPost'
-        )
-        // カテゴリを抽出する
-        const categories = entries.items.filter(
-          (item) => item.sys.contentType.sys.id === 'category'
-        )
-        posts = posts.map((post) => {
-          if (post.fields.images) {
-            const eyeCatchImage = entries.includes.Asset.find(
-              (asset) => asset.sys.id === post.fields.images.sys.id
-            )
-            post.eyeCatchImageUrl = eyeCatchImage.fields.file.url
-          }
-          return post
-        })
-        posts = posts.map((post) => {
-          const category = categories.find(
-            (category) => category.sys.id === post.fields.category.sys.id
-          )
-          post.categoryTitle = category.fields.title
-          post.categorySlug = category.fields.slug
-          return post
-        })
-        // ページ種別がカテゴリならば、カテゴリで投稿の絞り込み行う。
-        let categoryTitle = ''
-        if (currentPage === 'category') {
-          categoryTitle = categories.find(
-            (category) => category.fields.slug === currentCategory
-          ).fields.title
-          posts = posts.filter((post) => post.categorySlug === currentCategory)
-        }
-        // ページ種別がアーカイブならば、アーカイブの年月で投稿の絞り込みを行う。
-        if (currentPage === 'archive') {
-          posts = posts.filter(
-            (post) =>
-              post.sys.createdAt
-                .split('-')
-                .slice(0, 2)
-                .join('') === yyyymm
-          )
-        }
-        const itemTotal = posts.length
-        posts = posts.slice(perPage * (pageNumber - 1), perPage * pageNumber)
-        return {
-          posts,
-          pageNumber,
-          perPage,
-          itemTotal,
-          currentPage,
-          currentCategory,
-          categoryTitle,
-          yearMonth,
-          yyyymm
-        }
-      })
-      .catch(console.error)
+    let posts = store.state.posts
+    const categories = store.state.categories
+    // ページ種別がカテゴリならば、カテゴリで投稿の絞り込み行う。
+    let categoryTitle = ''
+    if (currentPage === 'category') {
+      categoryTitle = categories.find(
+        (category) => category.fields.slug === currentCategory
+      ).fields.title
+      posts = store.getters.postsFromCategorySlug(currentCategory)
+      console.log(posts)
+      // ページ種別がアーカイブなら、アーカイブで投稿の絞り込みを行う
+    } else if (currentPage === 'archive') {
+      posts = store.getters.postFromMonth(yyyymm)
+    }
+    posts = posts.map((post) => {
+      return store.getters.articleInfo(post)
+    })
+
+    const itemTotal = posts.length
+    posts = posts.slice(perPage * (pageNumber - 1), perPage * pageNumber)
+    return {
+      posts,
+      pageNumber,
+      perPage,
+      itemTotal,
+      currentPage,
+      currentCategory,
+      categoryTitle,
+      yearMonth,
+      yyyymm
+    }
   },
   methods: {
     linkGen(pageNumber) {

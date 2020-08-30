@@ -80,18 +80,7 @@ export default {
   },
   asyncData({ env, params, store }) {
     const article = store.getters.postFromSlug(params.slug)
-    const imageInfo = article.fields.images
-    if (imageInfo) {
-      const eyeCatchImage = store.getters.eyeCatchImage(imageInfo.sys.id)
-      article.eyeCatchImageUrl = eyeCatchImage.fields.file.url
-    }
-    const categoryInfo = article.fields.category
-    if (categoryInfo) {
-      const category = store.getters.category(article.fields.category.sys.id)
-      article.categoryTitle = category.fields.title
-      article.categorySlug = category.fields.slug
-    }
-    return { article }
+    return { article: store.getters.articleInfo(article) }
   },
   methods: {
     dateFormat(dateString) {

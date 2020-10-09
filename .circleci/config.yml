@@ -8,9 +8,12 @@ jobs:
       # - run: # 順に実行したいコマンドとコマンドに名前をつけます
       #     name: npm install
       #     command: npm i
+      -run:
+        name: yarn install
+        command: yarn install
       - run:
-          name: build
-          command: yarn run build
+          name: generate
+          command: yarn run generate
       - run:
           name: deploy to Firebase Hosting
           command: ./node_modules/.bin/firebase deploy --token=$FIREBASE_TOKEN # プロジェクト上のfirebase-toolsでデプロイします

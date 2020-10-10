@@ -17,6 +17,6 @@ jobs:
 
 workflows:
   version: 2
-  deploy_dev: # ワークフローの名前
+  deploy: # ワークフローの名前
     jobs:
       - deploy # 上で定義したジョブを指定します

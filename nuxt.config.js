@@ -65,8 +65,12 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/google-analytics'
   ],
+  googleAnalytics: {
+    id: 'UA-143514276-1'
+  },
   /*
    ** Nuxt.js modules
    */
@@ -81,12 +85,6 @@ export default {
     '@nuxtjs/markdownit',
     '~/plugins/hook', // pluginsセクションではなく、ここ？
     '@nuxtjs/sitemap',
-    [
-      '@nuxtjs/google-analytics',
-      {
-        id: 'UA-143514276-1'
-      }
-    ],
     [
       '@nuxtjs/google-adsense',
       {

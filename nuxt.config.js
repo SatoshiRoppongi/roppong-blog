@@ -38,6 +38,10 @@ export default {
         body: true
       },
       {
+        src: '/__/firebase/7.24.0/firebase-functions.js',
+        body: true
+      },
+      {
         /* Initialize Firebase */
         src: '/__/firebase/init.js',
         body: true
@@ -59,7 +63,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/contentful', '~/plugins/disqus', '~/plugins/markdownit'],
+  plugins: [
+    '~/plugins/contentful',
+    '~/plugins/disqus',
+    '~/plugins/markdownit'
+    // '~/plugins/firebase'
+  ],
   /*
    ** Nuxt.js dev-modules
    */

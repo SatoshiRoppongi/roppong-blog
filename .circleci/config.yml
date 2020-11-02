@@ -8,7 +8,7 @@ jobs:
       - run:
           name: yarn install
           command: yarn install
-      = run:
+      - run:
           name: functions package install
           command: cd functions/ && yarn install
       - run:

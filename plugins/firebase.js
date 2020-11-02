@@ -13,4 +13,4 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config)
 }
 
-export const functions = firebase.functions()
+export const functions = firebase.functions('asia-northeast1')

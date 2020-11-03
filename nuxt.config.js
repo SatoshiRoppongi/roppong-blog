@@ -66,8 +66,8 @@ export default {
   plugins: [
     '~/plugins/contentful',
     '~/plugins/disqus',
-    '~/plugins/markdownit'
-    // '~/plugins/firebase'
+    '~/plugins/markdownit',
+    '~/plugins/firebase'
   ],
   /*
    ** Nuxt.js dev-modules

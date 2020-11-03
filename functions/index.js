@@ -29,7 +29,7 @@ ${data.contents}
 }
 
 exports.sendMail = functions
-  .regions('asia-northeast1')
+  .region('asia-northeast1')
   .https.onCall(async (data, context) => {
     // メール設定
     const adminMail = {

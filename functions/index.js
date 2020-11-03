@@ -28,20 +28,22 @@ ${data.contents}
 `
 }
 
-exports.sendMail = functions.https.onCall(async (data, context) => {
-  // メール設定
-  const adminMail = {
-    from: gmailEmail,
-    to: adminEmail,
-    subject: 'ホームページお問い合わせ',
-    text: adminContents(data)
-  }
+exports.sendMail = functions
+  .regions('asia-northeast1')
+  .https.onCall(async (data, context) => {
+    // メール設定
+    const adminMail = {
+      from: gmailEmail,
+      to: adminEmail,
+      subject: 'ホームページお問い合わせ',
+      text: adminContents(data)
+    }
 
-  // 管理者へのメール送信
-  try {
-    await mailTransport.sendMail(adminMail)
-  } catch (e) {
-    console.error(`send failed. ${e}`)
-    throw new functions.https.HttpsError('internal', 'send failed')
-  }
-})
+    // 管理者へのメール送信
+    try {
+      await mailTransport.sendMail(adminMail)
+    } catch (e) {
+      console.error(`send failed. ${e}`)
+      throw new functions.https.HttpsError('internal', 'send failed')
+    }
+  })

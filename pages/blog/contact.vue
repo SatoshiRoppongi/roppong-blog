@@ -3,13 +3,6 @@
     <h1 class="posts_title text-center">
       お問い合わせ
     </h1>
-    <div>
-      お問い合わせフォームは現時点未実装です 何かある方はこちらへ。
-      satoshiroppongi@gmail.com
-    </div>
-    <div>
-      ※下記は現時点正しく動作する保証はありません
-    </div>
     <b-form @submit="onSubmit" v-if="show">
       <b-form-group id="input-group-1" label="お名前:" label-for="input-1">
         <b-form-input
@@ -22,9 +15,9 @@
       </b-form-group>
       <b-form-group
         id="input-group-2"
-        label="メールアドレス"
+        label="メールアドレス:"
         label-for="input-2"
-        description="メールアドレスの利用については、プライバシーポリシーをご覧ください"
+        description="お問い合わせに返信する際に利用させていただきます(それ以外には利用しません)。"
       >
         <b-form-input
           id="input-2"
@@ -37,7 +30,7 @@
       </b-form-group>
       <b-form-group
         id="input-group-3"
-        label="お問い合わせ内容"
+        label="お問い合わせ内容:"
         label-for="input-3"
       >
         <b-form-textarea
@@ -90,6 +83,7 @@ export default {
       evt.preventDefault()
       this.form.loading = true
       const mailer = functions.httpsCallable('sendMail')
+      this.showAlert('info', '送信中です...')
 
       mailer(this.form)
         .then(() => {
@@ -104,6 +98,7 @@ export default {
             'danger',
             '送信に失敗しました。時間をおいて再度お試しください。'
           )
+          console.log('test')
           console.log(err)
         })
         .finally(() => {
@@ -111,29 +106,18 @@ export default {
         })
     },
     formReset() {
-      this.$refs.form.reset()
+      this.form.email = ''
+      this.form.name = ''
+      this.form.text = ''
     },
     showAlert(color, message) {
       this.alert.message = message
       this.alert.color = color
       this.alert.show = true
-      this.dismissCountDown = this.dismissSecs
+      this.alert.dismissCountDown = this.alert.dismissSecs
     },
     countDownChanged(dismissCountDown) {
-      this.dismissCountDown = dismissCountDown
-    },
-    onReset(evt) {
-      evt.preventDefault()
-      // Reset our form values
-      this.form.email = ''
-      this.form.name = ''
-      this.form.category = null
-      this.form.text = ''
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
+      this.alert.dismissCountDown = dismissCountDown
     }
   }
 }

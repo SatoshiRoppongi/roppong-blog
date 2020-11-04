@@ -98,7 +98,7 @@ export default {
       '@nuxtjs/google-adsense',
       {
         id: process.env.GA_ADSENSE_ID,
-        pageLevelAds: true,
+        pageLevelAds: false,
         analyticsUacct: process.env.GA_TRACKING_ID, // アナリティクスと連携する場合のみ必要
         analyticsDomainName: domain // アナリティクスと連携する場合のみ必要
       }

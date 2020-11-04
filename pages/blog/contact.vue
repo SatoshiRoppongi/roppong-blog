@@ -80,7 +80,7 @@ export default {
         color: '',
         message: '',
         dismissSecs: 5,
-        dissmissCountDown: 0,
+        dismissCountDown: 0,
         showDismissibleAlert: false
       }
     }
@@ -93,7 +93,7 @@ export default {
 
       mailer(this.form)
         .then(() => {
-          this.formRset()
+          this.formReset()
           this.showAlert(
             'success',
             'お問い合わせありがとうございます。送信完了しました。'

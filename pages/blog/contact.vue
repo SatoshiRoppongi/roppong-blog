@@ -120,7 +120,7 @@ export default {
       this.dismissCountDown = this.dismissSecs
     },
     countDownChanged(dismissCountDown) {
-      this.dissmissCountDown = dismissCountDown
+      this.dismissCountDown = dismissCountDown
     },
     onReset(evt) {
       evt.preventDefault()

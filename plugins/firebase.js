@@ -1,12 +1,12 @@
 import firebase from 'firebase'
 
 const config = {
-  apiKey: process.env.FB_API_KEY,
-  authDomain: process.env.FB_AUTH_DOMAIN,
-  databaseURL: process.env.FB_DATABASE_URL,
-  projectId: process.env.FB_PROJECTID,
-  storageBucket: process.env.FB_STORAGE_BUCKET,
-  messagingSenderId: process.env.FB_MESSAGING_SENDER_ID
+  apiKey: 'AIzaSyAarwCZxtLYTgfQX5W_wFrlVCJxDihq6rY',
+  authDomain: 'roppong-blog.firebaseapp.com',
+  databaseURL: 'https://roppong-blog.firebaseio.com',
+  projectId: 'roppong-blog',
+  storageBucket: 'roppong-blog.appspot.com',
+  messagingSenderId: '93549814824'
 }
 
 if (!firebase.apps.length) {

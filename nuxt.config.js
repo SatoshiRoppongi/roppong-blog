@@ -141,9 +141,9 @@ export default {
         .getEntries(ctfConfig.CTF_BLOG_POST_TYPE_ID)
         .then((entries) => {
           // 記事
-          const postPathList = entries.items.map(
-            (entry) => `/blog/${entry.fields.slug}`
-          )
+          const postPathList = entries.items
+            .filter((item) => item.sys.contentType.sys.id === 'blogPost')
+            .map((entry) => `/blog/${entry.fields.slug}`)
           // 記事一覧ページ(ページネーション対応)
           // 全ての記事ページの数
           const allPosts = entries.items.filter(

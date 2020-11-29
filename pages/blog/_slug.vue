@@ -86,7 +86,9 @@ export default {
   },
   asyncData({ env, params, store }) {
     const article = store.getters.postFromSlug(params.slug)
-    return { article: store.getters.articleInfo(article) }
+    if (article) {
+      return { article: store.getters.articleInfo(article) }
+    }
   },
   methods: {
     dateFormat(dateString) {

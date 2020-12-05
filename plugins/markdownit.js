@@ -3,7 +3,7 @@ import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 // import hljs from 'highlight.js'
 
-import hljs from 'highlight.js/lib/highlight'
+import hljs from 'highlight.js/lib/core'
 
 import javascript from 'highlight.js/lib/languages/javascript'
 import css from 'highlight.js/lib/languages/css'

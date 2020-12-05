@@ -29,6 +29,9 @@
       class="my-3"
       center
     ></b-img>
+    <template>
+      <adsbygoogle ad-slot="7309254084" />
+    </template>
     <div v-html="$md.render(article.fields.body)" class="post-content"></div>
     <div class="comments">
       <vue-disqus
@@ -37,6 +40,9 @@
         shortname="roppong"
       ></vue-disqus>
     </div>
+    <template>
+      <adsbygoogle ad-slot="7309254084" />
+    </template>
   </section>
 </template>
 <script>
@@ -80,7 +86,9 @@ export default {
   },
   asyncData({ env, params, store }) {
     const article = store.getters.postFromSlug(params.slug)
-    return { article: store.getters.articleInfo(article) }
+    if (article) {
+      return { article: store.getters.articleInfo(article) }
+    }
   },
   methods: {
     dateFormat(dateString) {

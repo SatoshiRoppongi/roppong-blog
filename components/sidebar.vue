@@ -22,6 +22,9 @@
         </b-list-group>
       </b-card>
     </div>
+    <template>
+      <adsbygoogle ad-slot="7309254084" />
+    </template>
   </b-container>
 </template>
 <script>

@@ -11,7 +11,7 @@ const cdaClient = createClient(ctfConfig)
 const domain = process.env.BASE_URL.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)[1]
 
 export default {
-  mode: 'universal',
+  target: 'static',
   /*
    ** Headers of the page
    */
@@ -38,6 +38,10 @@ export default {
         body: true
       },
       {
+        src: '/__/firebase/7.24.0/firebase-functions.js',
+        body: true
+      },
+      {
         /* Initialize Firebase */
         src: '/__/firebase/init.js',
         body: true
@@ -59,14 +63,23 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/contentful', '~/plugins/disqus', '~/plugins/markdownit'],
+  plugins: [
+    '~/plugins/contentful',
+    '~/plugins/disqus',
+    '~/plugins/markdownit',
+    '~/plugins/firebase'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/google-analytics'
   ],
+  googleAnalytics: {
+    id: 'UA-143514276-1'
+  },
   /*
    ** Nuxt.js modules
    */
@@ -82,16 +95,10 @@ export default {
     '~/plugins/hook', // pluginsセクションではなく、ここ？
     '@nuxtjs/sitemap',
     [
-      '@nuxtjs/google-analytics',
-      {
-        id: 'UA-143514276-1'
-      }
-    ],
-    [
       '@nuxtjs/google-adsense',
       {
         id: process.env.GA_ADSENSE_ID,
-        pageLevelAds: true,
+        pageLevelAds: false,
         analyticsUacct: process.env.GA_TRACKING_ID, // アナリティクスと連携する場合のみ必要
         analyticsDomainName: domain // アナリティクスと連携する場合のみ必要
       }
@@ -126,6 +133,9 @@ export default {
         'b-carousel-slide': 'img-src',
         'b-embed': 'src'
       }
+    },
+    babel: {
+      compact: true
     }
   },
   generate: {
@@ -134,9 +144,9 @@ export default {
         .getEntries(ctfConfig.CTF_BLOG_POST_TYPE_ID)
         .then((entries) => {
           // 記事
-          const postPathList = entries.items.map(
-            (entry) => `/blog/${entry.fields.slug}`
-          )
+          const postPathList = entries.items
+            .filter((item) => item.sys.contentType.sys.id === 'blogPost')
+            .map((entry) => `/blog/${entry.fields.slug}`)
           // 記事一覧ページ(ページネーション対応)
           // 全ての記事ページの数
           const allPosts = entries.items.filter(

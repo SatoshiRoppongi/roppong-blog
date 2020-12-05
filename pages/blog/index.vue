@@ -89,7 +89,6 @@ export default {
         (category) => category.fields.slug === currentCategory
       ).fields.title
       posts = store.getters.postsFromCategorySlug(currentCategory)
-      console.log(posts)
       // ページ種別がアーカイブなら、アーカイブで投稿の絞り込みを行う
     } else if (currentPage === 'archive') {
       posts = store.getters.postFromMonth(yyyymm)

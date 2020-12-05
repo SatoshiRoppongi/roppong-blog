@@ -3,64 +3,35 @@
     <h1 class="posts_title text-center">
       お問い合わせ
     </h1>
-    <div>
-      お問い合わせフォームは現時点未実装です 何かある方はこちらへ。
-      satoshiroppongi@gmail.com
-    </div>
-    <!--
-    <b-form
-      @reset="onReset"
-      v-if="show"
-      name="ask-question"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-      method="post"
-    >
-      <input type="hidden" name="form-name" value="ask-question" />
-      <b-form-group id="input-group-2" label="お名前" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.name"
-          required
-          placeholder="山田太郎"
-          name="name"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-1"
-        label="Emailアドレス"
-        label-for="input-1"
-        description="Emailの利用については、プライバシーポリシーをご覧ください"
-      >
+    <b-form @submit="onSubmit" v-if="show">
+      <b-form-group id="input-group-1" label="お名前:" label-for="input-1">
         <b-form-input
           id="input-1"
+          v-model="form.name"
+          required
+          placeholder="例) 山田太郎"
+        >
+        </b-form-input>
+      </b-form-group>
+      <b-form-group
+        id="input-group-2"
+        label="メールアドレス:"
+        label-for="input-2"
+        description="お問い合わせに返信する際に利用させていただきます(それ以外には利用しません)。"
+      >
+        <b-form-input
+          id="input-2"
           v-model="form.email"
           type="email"
           required
-          placeholder="xxxxx@example.com"
-          name="email"
-        ></b-form-input>
+          placeholder="例) abcdefg@example.com"
+        >
+        </b-form-input>
       </b-form-group>
-
       <b-form-group
         id="input-group-3"
-        label="お問い合わせカテゴリ"
+        label="お問い合わせ内容:"
         label-for="input-3"
-      >
-        <b-form-select
-          id="input-3"
-          v-model="form.category"
-          :options="category"
-          required
-          name="category"
-        ></b-form-select>
-      </b-form-group>
-
-      <b-form-group
-        id="input-group-4"
-        label="お問い合わせ内容"
-        label-for="input-4"
       >
         <b-form-textarea
           id="input-4"
@@ -72,45 +43,81 @@
         ></b-form-textarea>
       </b-form-group>
       <b-button type="submit" variant="primary">送信</b-button>
-      <b-button type="reset" variant="danger">リセット</b-button>
     </b-form>
-    -->
+    <b-alert
+      :show="alert.dismissCountDown"
+      :variant="alert.color"
+      @dismissed="alert.dismissCountDown = 0"
+      @dismiss-count-down="countDownChanged"
+      dismissible
+    >
+      {{ alert.message }}
+    </b-alert>
   </div>
 </template>
 
 <script>
+import { functions } from '@/plugins/firebase'
 export default {
   data() {
     return {
       form: {
-        email: '',
         name: '',
-        cateogry: null,
-        text: ''
+        email: '',
+        text: '',
+        loading: false
       },
-      category: [
-        { text: '選択してください', value: null },
-        'ご質問',
-        'ご依頼',
-        'ご提案',
-        'その他'
-      ],
-      show: true
+      show: true,
+      alert: {
+        show: false,
+        color: '',
+        message: '',
+        dismissSecs: 5,
+        dismissCountDown: 0,
+        showDismissibleAlert: false
+      }
     }
   },
   methods: {
-    onReset(evt) {
+    onSubmit(evt) {
       evt.preventDefault()
-      // Reset our form values
+      this.form.loading = true
+      const mailer = functions.httpsCallable('sendMail')
+      this.showAlert('info', '送信中です...')
+
+      mailer(this.form)
+        .then(() => {
+          this.formReset()
+          this.showAlert(
+            'success',
+            'お問い合わせありがとうございます。送信完了しました。'
+          )
+        })
+        .catch((err) => {
+          this.showAlert(
+            'danger',
+            '送信に失敗しました。時間をおいて再度お試しください。'
+          )
+          console.log('test')
+          console.log(err)
+        })
+        .finally(() => {
+          this.form.loading = false
+        })
+    },
+    formReset() {
       this.form.email = ''
       this.form.name = ''
-      this.form.category = null
       this.form.text = ''
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
+    },
+    showAlert(color, message) {
+      this.alert.message = message
+      this.alert.color = color
+      this.alert.show = true
+      this.alert.dismissCountDown = this.alert.dismissSecs
+    },
+    countDownChanged(dismissCountDown) {
+      this.alert.dismissCountDown = dismissCountDown
     }
   }
 }

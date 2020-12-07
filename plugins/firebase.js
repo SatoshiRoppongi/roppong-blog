@@ -6,7 +6,7 @@ const config = {
   databaseURL: 'https://roppong-blog.firebaseio.com',
   projectId: 'roppong-blog',
   storageBucket: 'roppong-blog.appspot.com',
-  messagingSenderId: '93549814824'
+  messagingSenderId: '93549814824',
 }
 
 if (!firebase.apps.length) {

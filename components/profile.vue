@@ -2,7 +2,7 @@
   <div>
     <b-card tag="article" style="max-width: 20rem" class="text-center">
       <div class="mx-5">
-        <b-card-img :src="imageUrl" alt="my face" top width="30" />
+        <b-card-img-lazy :src="imageUrl" alt="my face" top width="30" />
       </div>
       <div class="mt-1">
         <b-card-title title-tag="h2"> ろっぽん </b-card-title>

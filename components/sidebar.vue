@@ -11,7 +11,7 @@
             :key="item.slug"
             :to="{
               name: card.pathName,
-              params: { slug: item.slug }
+              params: { slug: item.slug },
             }"
             class="d-flex justify-content-between align-items-center"
             >{{ item.title }}
@@ -32,7 +32,7 @@ import Profile from '@/components/profile.vue'
 
 export default {
   components: {
-    Profile
+    Profile,
   },
   computed: {
     cards() {
@@ -44,11 +44,11 @@ export default {
       return [
         { title: '最近の投稿', pathName: 'blog-slug', body: recentPost },
         { title: 'カテゴリ', pathName: 'blog-category-slug', body: categories },
-        { title: 'アーカイブ', pathName: 'blog-archive-slug', body: archives }
+        { title: 'アーカイブ', pathName: 'blog-archive-slug', body: archives },
         // { title: '最近のコメント', pathName: 'blog-slug', body: [] }
       ]
-    }
-  }
+    },
+  },
 }
 </script>
 

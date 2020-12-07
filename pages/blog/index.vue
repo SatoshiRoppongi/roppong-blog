@@ -3,11 +3,11 @@
     <h1 class="posts_title">
       <span v-if="currentPage === 'newPosts'"> 新着記事一覧 </span>
       <span v-if="currentPage === 'category'">
-        <span style="color:blue"> {{ categoryTitle }} </span>に関する記事
+        <span style="color: blue"> {{ categoryTitle }} </span>に関する記事
         <b-badge pill>{{ itemTotal }}件</b-badge>
       </span>
       <span v-if="currentPage === 'archive'">
-        <span style="color:blue"> {{ yearMonth }} </span>の投稿
+        <span style="color: blue"> {{ yearMonth }} </span>の投稿
         <b-badge pill>{{ itemTotal }}件</b-badge>
       </span>
     </h1>
@@ -36,29 +36,10 @@ import Card from '@/components/card.vue'
 import { PERPAGE } from '@/plugins/myutil'
 
 export default {
-  transition: 'slide-left',
   components: {
-    Card
+    Card,
   },
-  head() {
-    return {
-      title: 'roppong blog のトップページ',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content:
-            '趣味のランニング・日々勉強になったこと・面白いと思ったことを中心に、みなさまのお役に立つかもしれない情報を発信しています。'
-        }
-      ]
-    }
-  },
-  data() {
-    return {
-      currentPage: 'newPosts', // 新着記事
-      currentCategory: '' // currentPageがcategoryの時のみ使用
-    }
-  },
+  transition: 'slide-left',
   asyncData({ env, params, route, store }) {
     const perPage = PERPAGE // 1ページあたりの記事件数
     let pageNumber = 1
@@ -108,7 +89,26 @@ export default {
       currentCategory,
       categoryTitle,
       yearMonth,
-      yyyymm
+      yyyymm,
+    }
+  },
+  data() {
+    return {
+      currentPage: 'newPosts', // 新着記事
+      currentCategory: '', // currentPageがcategoryの時のみ使用
+    }
+  },
+  head() {
+    return {
+      title: 'roppong blog のトップページ',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            '趣味のランニング・日々勉強になったこと・面白いと思ったことを中心に、みなさまのお役に立つかもしれない情報を発信しています。',
+        },
+      ],
     }
   },
   methods: {
@@ -128,7 +128,7 @@ export default {
             : `/blog/archive/${this.yyyymm}/page/${pageNumber}`
       }
       return link
-    }
-  }
+    },
+  },
 }
 </script>

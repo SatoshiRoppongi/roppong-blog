@@ -8,8 +8,8 @@
         :to="{
           name: 'blog-slug',
           params: {
-            slug: slug
-          }
+            slug: slug,
+          },
         }"
         class="wrapper"
       >
@@ -22,22 +22,22 @@
         :to="{
           name: 'blog-category-slug',
           params: {
-            slug: categorySlug
-          }
+            slug: categorySlug,
+          },
         }"
         class="mb-2"
         variant="danger"
       >
         {{ categoryTitle }}
       </b-badge>
-      <b-card-img :src="eyeCatchImageUrl" :alt="eyeCatchImageAlt" />
-      <b-card-text v-html="abstruct" class="text-left my-5"> </b-card-text>
+      <b-card-img-lazy :src="eyeCatchImageUrl" :alt="eyeCatchImageAlt" />
+      <b-card-text class="text-left my-5" v-html="abstruct"> </b-card-text>
       <nuxt-link
         :to="{
           name: 'blog-slug',
           params: {
-            slug: slug
-          }
+            slug: slug,
+          },
         }"
       >
         <b-button block variant="outline-primary">続きを見る</b-button>
@@ -50,8 +50,8 @@ export default {
   props: {
     item: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
   computed: {
     createdAt() {
@@ -107,17 +107,12 @@ export default {
       } else {
         return ''
       }
-    }
+    },
   },
   methods: {
     dateFormat(dateString) {
-      return dateString
-        ? dateString
-            .split('T')[0]
-            .split('-')
-            .join('/')
-        : ''
-    }
-  }
+      return dateString ? dateString.split('T')[0].split('-').join('/') : ''
+    },
+  },
 }
 </script>

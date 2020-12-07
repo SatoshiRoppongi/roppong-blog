@@ -46,7 +46,7 @@ export default ({ app }, inject) => {
         hljs.highlight('plain', code, true).value +
         '</code></pre>'
       )
-    }
+    },
   })
   md.use(require('markdown-it-table-of-contents'))
   md.use(require('markdown-it-footnote'))
@@ -58,7 +58,7 @@ export default ({ app }, inject) => {
   md.use(markdownItAnchor, {
     permalink: true,
     permalinkBefore: true,
-    permalinkSymbol: '' // §
+    permalinkSymbol: '', // §
   }).use(markdownItTocDoneRight)
   // md.use(require('markdown-it-imsize'))
   md.use(require('markdown-it-podcast'), {
@@ -69,16 +69,16 @@ export default ({ app }, inject) => {
     show_comments: false,
     show_user: true,
     show_reposts: false,
-    visual: true
+    visual: true,
   })
 
   const defaultRender =
     md.renderer.rules.link_open ||
-    function(tokens, idx, options, env, self) {
+    function (tokens, idx, options, env, self) {
       return self.renderToken(tokens, idx, options)
     }
 
-  md.renderer.rules.link_open = function(tokens, idx, options, env, self) {
+  md.renderer.rules.link_open = function (tokens, idx, options, env, self) {
     const aIndex = tokens[idx].attrIndex('target')
     if (tokens[idx].attrs[0][1].match('http')) {
       if (aIndex < 0) {

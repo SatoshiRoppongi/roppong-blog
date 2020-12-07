@@ -5,7 +5,7 @@ import { PERPAGE } from './plugins/myutil'
 const ctfConfig = getConfigForKeys([
   'CTF_BLOG_POST_TYPE_ID',
   'CTF_SPACE_ID',
-  'CTF_CDA_ACCESS_TOKEN'
+  'CTF_CDA_ACCESS_TOKEN',
 ])
 const cdaClient = createClient(ctfConfig)
 const domain = process.env.BASE_URL.match(/^https?:\/{2,}(.*?)(?:\/|\?|#|$)/)[1]
@@ -23,31 +23,31 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
-      }
+        content: process.env.npm_package_description || '',
+      },
     ],
     script: [
       {
         /* The core Firebase JS SDK is always required and must be listed first */
         src: '/__/firebase/7.19.0/firebase-app.js',
-        body: true
+        body: true,
       },
       {
         /* TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries */
         src: '/__/firebase/7.19.0/firebase-analytics.js',
-        body: true
+        body: true,
       },
       {
         src: '/__/firebase/7.24.0/firebase-functions.js',
-        body: true
+        body: true,
       },
       {
         /* Initialize Firebase */
         src: '/__/firebase/init.js',
-        body: true
-      }
+        body: true,
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Customize the progress-bar color
@@ -58,7 +58,7 @@ export default {
    */
   css: [
     { src: '~/node_modules/highlight.js/styles/hopscotch.css', lang: 'css' },
-    '~/assets/scss/app.scss'
+    '~/assets/scss/app.scss',
   ],
   /*
    ** Plugins to load before mounting the App
@@ -67,7 +67,7 @@ export default {
     '~/plugins/contentful',
     '~/plugins/disqus',
     '~/plugins/markdownit',
-    '~/plugins/firebase'
+    '~/plugins/firebase',
   ],
   /*
    ** Nuxt.js dev-modules
@@ -75,10 +75,10 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
   ],
   googleAnalytics: {
-    id: 'UA-143514276-1'
+    id: 'UA-143514276-1',
   },
   /*
    ** Nuxt.js modules
@@ -100,9 +100,9 @@ export default {
         id: process.env.GA_ADSENSE_ID,
         pageLevelAds: false,
         analyticsUacct: process.env.GA_TRACKING_ID, // アナリティクスと連携する場合のみ必要
-        analyticsDomainName: domain // アナリティクスと連携する場合のみ必要
-      }
-    ]
+        analyticsDomainName: domain, // アナリティクスと連携する場合のみ必要
+      },
+    ],
   ],
   /*
    ** Axios module configuration
@@ -131,12 +131,12 @@ export default {
         'b-card-img': 'img-src',
         'b-card-img-lazy': ['src', 'blank-src'],
         'b-carousel-slide': 'img-src',
-        'b-embed': 'src'
+        'b-embed': 'src',
       }
     },
     babel: {
-      compact: true
-    }
+      compact: true,
+    },
   },
   generate: {
     routes() {
@@ -172,7 +172,7 @@ export default {
               const categoryPageCount = Math.ceil(categoryPostCount / PERPAGE)
               const categoryPath = `/blog/category/${category.fields.slug}`
               const categoryPagePathList = [
-                ...Array(categoryPageCount).keys()
+                ...Array(categoryPageCount).keys(),
               ].map((i) => `/blog/category/${categoryPath}/page/${i + 1}`)
               return { categoryPath, categoryPagePathList }
             })
@@ -188,12 +188,7 @@ export default {
           */
           // アーカイブ
           const yyyymmList = allPosts
-            .map((post) =>
-              post.sys.createdAt
-                .split('-')
-                .slice(0, 2)
-                .join('')
-            )
+            .map((post) => post.sys.createdAt.split('-').slice(0, 2).join(''))
             .filter((elem, index, self) => self.indexOf(elem) === index)
           const archivePagePathList = yyyymmList.map(
             (yyyymm) => `/blog/archive/${yyyymm}`
@@ -208,15 +203,15 @@ export default {
             // ...basePagePathList,
             // ...categoryPagePathList,
             ...archivePagePathList,
-            ...miscPathList
+            ...miscPathList,
           ]
         })
-    }
+    },
   },
   env: {
     CTF_SPACE_ID: ctfConfig.CTF_SPACE_ID,
     CTF_CDA_ACCESS_TOKEN: ctfConfig.CTF_CDA_ACCESS_TOKEN,
-    CTF_BLOG_POST_TYPE_ID: ctfConfig.CTF_BLOG_POST_TYPE_ID
+    CTF_BLOG_POST_TYPE_ID: ctfConfig.CTF_BLOG_POST_TYPE_ID,
   },
   router: {
     middleware: ['getContentful'],
@@ -239,7 +234,7 @@ export default {
         }
         return position
       }
-    }
+    },
   },
   sitemap: {
     path: '/sitemap.xml',
@@ -270,7 +265,7 @@ export default {
               const categoryPageCount = Math.ceil(categoryPostCount / PERPAGE)
               const categoryPath = `/blog/category/${category.fields.slug}`
               const categoryPagePathList = [
-                ...Array(categoryPageCount).keys()
+                ...Array(categoryPageCount).keys(),
               ].map((i) => `/blog/category/${categoryPath}/page/${i + 1}`)
               return { categoryPath, categoryPagePathList }
             })
@@ -280,12 +275,7 @@ export default {
 
           // アーカイブ
           const yyyymmList = allPosts
-            .map((post) =>
-              post.sys.createdAt
-                .split('-')
-                .slice(0, 2)
-                .join('')
-            )
+            .map((post) => post.sys.createdAt.split('-').slice(0, 2).join(''))
             .filter((elem, index, self) => self.indexOf(elem) === index)
           const archivePagePathList = yyyymmList.map(
             (yyyymm) => `/blog/archive/${yyyymm}`
@@ -297,9 +287,9 @@ export default {
             ...postPathList,
             ...categoryPathList,
             ...archivePagePathList,
-            ...miscPathList
+            ...miscPathList,
           ]
         })
-    }
-  }
+    },
+  },
 }

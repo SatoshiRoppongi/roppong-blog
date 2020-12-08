@@ -116,7 +116,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    analyze: true,
     extend(config) {
       const vueLoader = config.module.rules.find(
         (rule) => rule.loader === 'vue-loader'

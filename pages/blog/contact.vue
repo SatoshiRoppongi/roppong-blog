@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import { functions } from '@/plugins/firebase'
 export default {
   data() {
     return {
@@ -80,7 +79,7 @@ export default {
     onSubmit(evt) {
       evt.preventDefault()
       this.form.loading = true
-      const mailer = functions.httpsCallable('sendMail')
+      const mailer = firebase.functions().httpsCallable('sendMail')
       this.showAlert('info', '送信中です...')
 
       mailer(this.form)

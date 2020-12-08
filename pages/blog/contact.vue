@@ -1,6 +1,11 @@
 <template>
   <div class="mt-4">
     <h1 class="posts_title text-center">お問い合わせ</h1>
+    <div>
+      下記フォームは正しく動作していない可能性があります。<br />
+      ご用件がある方はこちらまで<br />
+      roppongblog@gmail.com
+    </div>
     <b-form v-if="show" @submit="onSubmit">
       <b-form-group id="input-group-1" label="お名前:" label-for="input-1">
         <b-form-input
@@ -80,6 +85,7 @@ export default {
       evt.preventDefault()
       this.form.loading = true
       const mailer = firebase
+        .app()
         .functions('asia-northeast1')
         .httpsCallable('sendMail')
       this.showAlert('info', '送信中です...')

@@ -79,7 +79,9 @@ export default {
     onSubmit(evt) {
       evt.preventDefault()
       this.form.loading = true
-      const mailer = firebase.functions().httpsCallable('sendMail')
+      const mailer = firebase
+        .functions('asia-northeast1')
+        .httpsCallable('sendMail')
       this.showAlert('info', '送信中です...')
 
       mailer(this.form)

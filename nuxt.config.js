@@ -67,7 +67,7 @@ export default {
     '~/plugins/contentful',
     '~/plugins/disqus',
     '~/plugins/markdownit',
-    '~/plugins/firebase',
+    /* '~/plugins/firebase', */
   ],
   /*
    ** Nuxt.js dev-modules
@@ -116,6 +116,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    analyze: true,
     extend(config) {
       const vueLoader = config.module.rules.find(
         (rule) => rule.loader === 'vue-loader'
@@ -215,26 +216,6 @@ export default {
   },
   router: {
     middleware: ['getContentful'],
-    // 現在Nuxt.jsのバグでページ内アンカーリンク付きのURLを直接開いた際にその位置にスクロールしない
-    // バグの暫定的な対処:https://isoppp.com/note/2018-06-20/add1-nuxt-firebase-blog-markdown-process/
-    scrollBehavior(to, from, savedPosition) {
-      if (savedPosition) {
-        return savedPosition
-      } else {
-        let position = {}
-        if (to.matched.length < 2) {
-          position = { x: 0, y: 0 }
-        } else if (
-          to.matched.some((r) => r.components.default.options.scrollToTop)
-        ) {
-          position = { x: 0, y: 0 }
-        }
-        if (to.hash) {
-          position = { selector: to.hash }
-        }
-        return position
-      }
-    },
   },
   sitemap: {
     path: '/sitemap.xml',

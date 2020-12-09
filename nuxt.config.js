@@ -132,6 +132,8 @@ export default {
       'BFormTextarea',
       'BAlert',
       'BPagination-Nav',
+      'BImg',
+      'BImgLazy',
     ],
   },
   /*

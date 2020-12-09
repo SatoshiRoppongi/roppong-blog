@@ -58,7 +58,7 @@ export default {
    */
   css: [
     { src: '~/node_modules/highlight.js/styles/hopscotch.css', lang: 'css' },
-    '~/assets/scss/app.scss',
+    // '~/assets/scss/app.scss',
   ],
   /*
    ** Plugins to load before mounting the App
@@ -85,7 +85,8 @@ export default {
    */
   modules: [
     // Doc: https://bootstrap-vue.js.org
-    ['bootstrap-vue/nuxt', { css: false }],
+    // ['bootstrap-vue/nuxt', { css: false }],
+    ['bootstrap-vue/nuxt'],
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
@@ -104,6 +105,35 @@ export default {
       },
     ],
   ],
+  bootstrapVue: {
+    components: [
+      'BCard',
+      'BBadge',
+      'BCardTitle',
+      'BCardImgLazy',
+      'BCardText',
+      'BButton',
+      'BCardBody',
+      'BNavbar',
+      'BNavbarBrand',
+      'BCollapse',
+      'BNavItem',
+      'BNavbarNav',
+      'BNavbarToggle',
+      'BListGroup',
+      'BListGroupItem',
+      'BContainer',
+      'BRow',
+      'BCol',
+      'BJumbotron',
+      'BForm',
+      'BFormGroup',
+      'BFormInput',
+      'BFormTextarea',
+      'BAlert',
+      'BPagination-Nav',
+    ],
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

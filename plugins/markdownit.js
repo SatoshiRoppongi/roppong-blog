@@ -53,7 +53,6 @@ export default ({ app }, inject) => {
   md.use(require('markdown-it-mark'))
   md.use(require('markdown-it-video'))
   md.use(require('markdown-it-sanitizer'))
-  md.use(require('markdown-it-emoji'))
   md.use(require('markdown-it-checkbox'))
   md.use(markdownItAnchor, {
     permalink: true,

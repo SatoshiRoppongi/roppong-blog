@@ -26,7 +26,7 @@
           },
         }"
         class="mb-2"
-        variant="danger"
+        variant="dark"
       >
         {{ categoryTitle }}
       </b-badge>

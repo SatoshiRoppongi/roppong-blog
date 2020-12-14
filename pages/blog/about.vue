@@ -1,8 +1,6 @@
 <template>
   <section class="slug my-5">
-    <div id="title">
-      このブログについて
-    </div>
+    <div id="title">このブログについて</div>
     <div id="body">
       <p class="my-3">
         運営者ろっぽんが、日々の生活で気づいたこと・勉強になったことなどを備忘録として残していくブログです。
@@ -18,9 +16,7 @@
         このブログは、アメーバブログ・ライブドアブログ・はてなブログなどのブログプラットフォーム上のものではありません。
         また、パソコンが少し得意な人がブログ運営するときに使うWordPressも使っておりません。
         このブログは、
-        <div class="delete">
-          Nuxt.js + Contentful + Netfly
-        </div>
+        <div class="delete">Nuxt.js + Contentful + Netfly</div>
         <div>
           Nuxt.js + Contentful + Firebase <br />
           ※

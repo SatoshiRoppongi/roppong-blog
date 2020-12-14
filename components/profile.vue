@@ -1,13 +1,11 @@
 <template>
   <div>
-    <b-card tag="article" style="max-width: 20rem;" class="text-center">
+    <b-card tag="article" style="max-width: 20rem" class="text-center">
       <div class="mx-5">
-        <b-card-img :src="imageUrl" alt="my face" top width="30" />
+        <b-card-img-lazy :src="imageUrl" alt="my face" top width="30" />
       </div>
       <div class="mt-1">
-        <b-card-title title-tag="h2">
-          ろっぽん
-        </b-card-title>
+        <b-card-title title-tag="h2"> ろっぽん </b-card-title>
       </div>
       <b-card-text>
         都内でシステムエンジニアをしています。
@@ -17,7 +15,7 @@
       <div class="my-3">
         <b-list-group horizontal>
           <b-list-group-item href="https://github.com/SatoshiRoppongi">
-            <b-img
+            <b-img-lazy
               src="~/static/GitHub-Mark-120px-plus.png"
               width="50"
               height="50"
@@ -25,7 +23,7 @@
               alt="github logo"
           /></b-list-group-item>
           <b-list-group-item href="https://www.strava.com/athletes/43984091">
-            <b-img
+            <b-img-lazy
               src="~/static/Strava_logo.png"
               width="50"
               height="50"
@@ -33,7 +31,7 @@
               alt="strava logo"
           /></b-list-group-item>
           <b-list-group-item href="https://www.youtube.com/user/s6hori">
-            <b-img
+            <b-img-lazy
               src="~/static/youtube_social_circle_dark.png"
               width="50"
               height="50"
@@ -57,7 +55,7 @@ export default {
         .url
       const imgAdjust = '?fit=thumb&f=top_left&h=200&w=200&r=180'
       return 'https:' + imgUrl + imgAdjust
-    }
-  }
+    },
+  },
 }
 </script>

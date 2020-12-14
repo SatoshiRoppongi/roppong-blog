@@ -7,7 +7,7 @@ export const state = () => ({
   posts: [],
   categories: [],
   postImages: [], // only profile face
-  includes: {} // contains entry [] and Assets []
+  includes: {}, // contains entry [] and Assets []
 })
 
 export const mutations = {
@@ -22,7 +22,7 @@ export const mutations = {
   },
   setIncludes(state, payload) {
     state.includes = payload
-  }
+  },
 }
 
 export const actions = {
@@ -31,7 +31,7 @@ export const actions = {
     await client
       .getEntries({
         content_type: process.env.CTF_BLOG_POST_TYPE_ID,
-        order: '-sys.createdAt'
+        order: '-sys.createdAt',
       })
       .then((res) => commit('setPosts', res.items))
       .catch(console.error)
@@ -42,7 +42,7 @@ export const actions = {
     await client
       .getEntries({
         content_type: 'category',
-        order: '-sys.createdAt'
+        order: '-sys.createdAt',
       })
       .then((res) => commit('setCategories', res.items))
       .catch(console.error)
@@ -61,10 +61,10 @@ export const actions = {
   async getIncludes({ commit }) {
     await client
       .getEntries({
-        content_type: process.env.CTF_BLOG_POST_TYPE_ID
+        content_type: process.env.CTF_BLOG_POST_TYPE_ID,
       })
       .then((res) => commit('setIncludes', res.includes))
-  }
+  },
 }
 
 export const getters = {
@@ -75,7 +75,7 @@ export const getters = {
         title: category.fields.title,
         slug: category.fields.slug,
         definition: category.fields.definition,
-        id: category.sys.id
+        id: category.sys.id,
       }
     })
   },
@@ -85,7 +85,7 @@ export const getters = {
       return {
         title: post.fields.title,
         slug: post.fields.slug,
-        createdAt: post.sys.createdAt
+        createdAt: post.sys.createdAt,
       }
     })
   },
@@ -96,11 +96,7 @@ export const getters = {
   // 年月(yyyymm)で投稿を取得するgetter
   postFromMonth: (state) => (yyyymm) => {
     return state.posts.filter(
-      (post) =>
-        post.sys.createdAt
-          .split('-')
-          .splice(0, 2)
-          .join('') === yyyymm
+      (post) => post.sys.createdAt.split('-').splice(0, 2).join('') === yyyymm
     )
   },
   // カテゴリslugから投稿を取得する
@@ -180,9 +176,9 @@ export const getters = {
       archives.push({
         title: key.substr(0, 4) + '年' + key.substr(4) + '月',
         slug: key,
-        count: counts[key]
+        count: counts[key],
       })
     }
     return archives
-  }
+  },
 }

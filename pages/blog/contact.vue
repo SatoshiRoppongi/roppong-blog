@@ -1,9 +1,12 @@
 <template>
   <div class="mt-4">
-    <h1 class="posts_title text-center">
-      お問い合わせ
-    </h1>
-    <b-form @submit="onSubmit" v-if="show">
+    <h1 class="posts_title text-center">お問い合わせ</h1>
+    <div>
+      下記フォームは正しく動作していない可能性があります。<br />
+      ご用件がある方はこちらまで<br />
+      roppongblog@gmail.com
+    </div>
+    <b-form v-if="show" @submit="onSubmit">
       <b-form-group id="input-group-1" label="お名前:" label-for="input-1">
         <b-form-input
           id="input-1"
@@ -47,9 +50,9 @@
     <b-alert
       :show="alert.dismissCountDown"
       :variant="alert.color"
+      dismissible
       @dismissed="alert.dismissCountDown = 0"
       @dismiss-count-down="countDownChanged"
-      dismissible
     >
       {{ alert.message }}
     </b-alert>
@@ -57,7 +60,6 @@
 </template>
 
 <script>
-import { functions } from '@/plugins/firebase'
 export default {
   data() {
     return {
@@ -65,7 +67,7 @@ export default {
         name: '',
         email: '',
         text: '',
-        loading: false
+        loading: false,
       },
       show: true,
       alert: {
@@ -74,15 +76,18 @@ export default {
         message: '',
         dismissSecs: 5,
         dismissCountDown: 0,
-        showDismissibleAlert: false
-      }
+        showDismissibleAlert: false,
+      },
     }
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
       this.form.loading = true
-      const mailer = functions.httpsCallable('sendMail')
+      const mailer = firebase
+        .app()
+        .functions('asia-northeast1')
+        .httpsCallable('sendMail')
       this.showAlert('info', '送信中です...')
 
       mailer(this.form)
@@ -98,7 +103,6 @@ export default {
             'danger',
             '送信に失敗しました。時間をおいて再度お試しください。'
           )
-          console.log('test')
           console.log(err)
         })
         .finally(() => {
@@ -118,7 +122,7 @@ export default {
     },
     countDownChanged(dismissCountDown) {
       this.alert.dismissCountDown = dismissCountDown
-    }
-  }
+    },
+  },
 }
 </script>

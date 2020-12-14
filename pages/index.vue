@@ -1,9 +1,7 @@
 <template>
   <b-jumbotron class="wrap" fluid container-fluid text-variant="white">
-    <template v-slot:header>roppong.com</template>
-    <template v-slot:lead>
-      Wanna check my blog? Go to here below
-    </template>
+    <template #header>roppong.com</template>
+    <template #lead> Wanna check my blog? Go to here below </template>
     <b-button variant="primary" href="blog">roppong blog</b-button>
     <video
       id="bg-video"

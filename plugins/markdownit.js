@@ -3,6 +3,7 @@ import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 // import hljs from 'highlight.js'
 
+/*
 import hljs from 'highlight.js/lib/core'
 
 import javascript from 'highlight.js/lib/languages/javascript'
@@ -18,6 +19,7 @@ hljs.registerLanguage('python', python)
 hljs.registerLanguage('bash', bash)
 hljs.registerLanguage('sh', sh)
 hljs.registerLanguage('plain', plain)
+*/
 /* refs https://izm51.com/posts/markdown-it-target-blank-anchor */
 
 export default ({ app }, inject) => {
@@ -31,6 +33,14 @@ export default ({ app }, inject) => {
     preset: 'default',
     xhtmlOut: true,
     langPrefix: 'language-',
+    highlight: (code, lang) => {
+      return (
+        '<pre class="hljs" style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; background-color: #000000; color: #ffffff;"><code>' +
+        code +
+        '</code></pre>'
+      )
+    },
+    /*
     highlight: (code, lang) => {
       if (lang && hljs.getLanguage(lang)) {
         try {
@@ -47,6 +57,7 @@ export default ({ app }, inject) => {
         '</code></pre>'
       )
     },
+    */
   })
   md.use(require('markdown-it-table-of-contents'))
   md.use(require('markdown-it-footnote'))

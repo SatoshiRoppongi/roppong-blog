@@ -9,8 +9,8 @@
       :to="{
         name: 'blog-category-slug',
         params: {
-          slug: article.categorySlug
-        }
+          slug: article.categorySlug,
+        },
       }"
       class="mb-2"
       variant="info"
@@ -22,17 +22,17 @@
       <div v-if="updatedAt !== createdAt">更新日：{{ updatedAt }}</div>
     </div>
     <!-- 画像をここに -->
-    <b-img
+    <b-img-lazy
       :src="eyeCatchImageUrl"
       :alt="eyeCatchImageAlt"
       fluid
       class="my-3"
       center
-    ></b-img>
+    ></b-img-lazy>
     <template>
       <adsbygoogle ad-slot="7309254084" />
     </template>
-    <div v-html="$md.render(article.fields.body)" class="post-content"></div>
+    <div class="post-content" v-html="$md.render(article.fields.body)"></div>
     <div class="comments">
       <vue-disqus
         :identifier="'post/' + article.fields.title"
@@ -47,6 +47,19 @@
 </template>
 <script>
 export default {
+  transition: 'slide-right',
+  props: {
+    id: {
+      type: String,
+      default: '',
+    },
+  },
+  asyncData({ env, params, store }) {
+    const article = store.getters.postFromSlug(params.slug)
+    if (article) {
+      return { article: store.getters.articleInfo(article) }
+    }
+  },
   head() {
     return {
       title: this.article.fields.title,
@@ -54,18 +67,11 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: this.article.fields.metaDescription
-        }
-      ]
+          content: this.article.fields.metaDescription,
+        },
+      ],
     }
   },
-  props: {
-    id: {
-      type: String,
-      default: ''
-    }
-  },
-  transition: 'slide-right',
   computed: {
     createdAt() {
       return this.dateFormat(this.article.sys.createdAt)
@@ -82,24 +88,13 @@ export default {
       return this.article.fields.images
         ? this.article.fields.images.fields.description
         : 'random eye catch image'
-    }
-  },
-  asyncData({ env, params, store }) {
-    const article = store.getters.postFromSlug(params.slug)
-    if (article) {
-      return { article: store.getters.articleInfo(article) }
-    }
+    },
   },
   methods: {
     dateFormat(dateString) {
-      return dateString
-        ? dateString
-            .split('T')[0]
-            .split('-')
-            .join('/')
-        : ''
-    }
-  }
+      return dateString ? dateString.split('T')[0].split('-').join('/') : ''
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

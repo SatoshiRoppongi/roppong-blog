@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="danger">
+    <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-navbar-brand aria-label="ホームへ" to="/blog"
         ><Homeicon
       /></b-navbar-brand>
@@ -14,7 +14,7 @@
             :key="item.slug"
             :to="{
               name: 'blog-category-slug',
-              params: { slug: item.slug }
+              params: { slug: item.slug },
             }"
           >
             <b>
@@ -38,12 +38,12 @@ import { mapGetters } from 'vuex'
 
 export default {
   components: {
-    Homeicon
+    Homeicon,
   },
   computed: {
     ...mapGetters({
-      navBarCategoryMenu: 'navCategoryInfo'
-    })
-  }
+      navBarCategoryMenu: 'navCategoryInfo',
+    }),
+  },
 }
 </script>

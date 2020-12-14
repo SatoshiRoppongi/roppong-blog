@@ -9,8 +9,8 @@ const mailTransport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: gmailEmail,
-    pass: gmailPassword
-  }
+    pass: gmailPassword,
+  },
 })
 
 // 管理者用のメールテンプレート
@@ -36,7 +36,7 @@ exports.sendMail = functions
       from: gmailEmail,
       to: adminEmail,
       subject: 'ホームページお問い合わせ',
-      text: adminContents(data)
+      text: adminContents(data),
     }
 
     // 管理者へのメール送信

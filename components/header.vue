@@ -8,9 +8,7 @@
       >
         <b-card-body>
           <nuxt-link to="/blog">
-            <h1>
-              roppong blog
-            </h1>
+            <h1>roppong blog</h1>
           </nuxt-link>
         </b-card-body>
       </b-card>
@@ -22,8 +20,8 @@
 import HeaderNav from '@/components/headerNav.vue'
 export default {
   components: {
-    HeaderNav
-  }
+    HeaderNav,
+  },
 }
 </script>
 <style scoped>

@@ -84,6 +84,7 @@ export default {
     onSubmit(evt) {
       evt.preventDefault()
       this.form.loading = true
+      // eslint-disable-next-line no-undef
       const mailer = firebase
         .app()
         .functions('asia-northeast1')

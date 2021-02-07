@@ -28,8 +28,8 @@ export default {
   components: {
     Header,
     Footer,
-    Sidebar
-  }
+    Sidebar,
+  },
 }
 </script>
 

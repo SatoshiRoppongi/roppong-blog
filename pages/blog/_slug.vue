@@ -98,7 +98,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-/deep/ h1 {
+::v-deep h1 {
   background: linear-gradient(#fefefe, #f3f5f5);
   background: -o-linear-gradient(#fefefe, #f3f5f5);
   background: -ms-linear-gradient(#fefefe, #f3f5f5);
@@ -121,7 +121,7 @@ export default {
   width: 100%;
 }
 
-/deep/ .h1:before {
+::v-deep .h1:before {
   background-color: #1b73ba;
   border-radius: 3px;
   content: ' ';
@@ -133,7 +133,7 @@ export default {
   top: 20%;
   width: 6px;
 }
-/deep/ h2 {
+::v-deep h2 {
   background: linear-gradient(#f3f5f5, #fff);
   background: -o-linear-gradient(#f3f5f5, #fff);
   background: -ms-linear-gradient(#f3f5f5, #fff);
@@ -152,18 +152,18 @@ export default {
   margin: 0 0 30px;
   padding: 7px 0 5px 10px;
 }
-/deep/ h3 {
+::v-deep h3 {
   border-bottom: 2px solid #1b73ba;
   font-size: 18px;
   margin: 0 0 20px;
   padding-bottom: 5px;
 }
-/deep/ h4 {
+::v-deep h4 {
   font-size: 16px;
   margin: 0 0 20px;
 }
 
-/deep/ h4:before {
+::v-deep h4:before {
   background-color: #1b73ba;
   border-radius: 2px;
   content: '';
@@ -174,16 +174,16 @@ export default {
   width: 4px;
 }
 
-/deep/ h5 {
+::v-deep h5 {
   font-size: 16px;
   margin: 0 0 20px;
 }
-/deep/ h6 {
+::v-deep h6 {
   font-size: 16px;
   margin: 0 0 20px;
 }
 
-/deep/ .post-content {
+::v-deep .post-content {
   padding: 0 0 15px;
   position: relative;
   z-index: 1;

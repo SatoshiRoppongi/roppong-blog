@@ -36,7 +36,7 @@
     "markdown-it-toc-done-right": "^4.2.0",
     "markdown-it-video": "^0.6.3",
     "node": "^15.3.0",
-    "node-sass": "^5.0.0",
+    "node-sass": "^7.0.0",
     "nuxt": "^2.14.9",
     "sass-loader": "^10.1.0",
     "vue-disqus": "^4.0.1"
